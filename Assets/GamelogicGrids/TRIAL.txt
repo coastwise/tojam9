@@ -1,0 +1,10 @@
+I'm not including the Grids package in the repo as this project's source may be
+made available online, and Gamelogic might not appreciate that happening to
+their work. For this project to work, you'll need to install your own copy.
+
+Download the Grids 30-day trial from the Gamelogic website:
+http://gamelogic.co.za/buy-grids/
+
+Direct link:
+http://www.gamelogic.co.za/downloads/Gamelogic_Grids_1_7_Trial.unitypackage
+
