@@ -100,6 +100,8 @@ public class CellScript : MonoBehaviour {
 			_mutateChance = 0;
 			_mutated = true;
 
+			onlyDivideIntoEmptyNeighbour = false;
+
 			Material newMat = Resources.Load ("CancerCellMaterial", typeof(Material)) as Material;
 			gameObject.renderer.material = newMat;
 
