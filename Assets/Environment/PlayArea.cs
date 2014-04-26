@@ -63,7 +63,7 @@ public class PlayArea : GLMonoBehaviour {
 			.To3DXY();
 		
 		foreach(FlatHexPoint point in grid) {
-			SpawnCell(healthyCellPrefab, point);
+			if (Random.value < 0.5f) SpawnCell(healthyCellPrefab, point);
 		}
 
 		int x = (int)Random.Range(gridSize.x/3, 2*gridSize.x/3);
