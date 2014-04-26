@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Gamelogic.Grids;
 
+using System.Linq;
+
 public class CellScript : MonoBehaviour {
 
 	public float _divideDelayInSeconds = 200;
@@ -11,9 +13,12 @@ public class CellScript : MonoBehaviour {
 	
 	public float _deathDelayInSeconds = 200;
 	float _deathChance;
-	
+
 	public float _mutationFactor = 0;
 	public float _mutateChance;
+
+	public bool onlyDivideIntoEmptyNeighbour = true;
+
 	float mutateChance;
 	public bool _mutated = false;
 
@@ -72,6 +77,13 @@ public class CellScript : MonoBehaviour {
 					area.SpawnCell(this, point);
 					return;
 				}
+			}
+
+			if (freeNeighbors.Count == 0 && !onlyDivideIntoEmptyNeighbour) {
+				// divide anyway because cancer!
+				FlatHexPoint[] directions = grid.GetNeighborDirections().ToArray();
+				FlatHexPoint dir = directions[Random.Range(0, directions.Length)];
+				area.SpawnCell(this, hexPoint + dir, dir);
 			}
 		}
 	}

@@ -48,6 +48,7 @@ public class PlayArea : GLMonoBehaviour {
 		CellScript bumped = grid[point];
 		if (bumped != null) MoveAndBump(bumped, point+dir, dir);
 		grid[point] = incoming;
+		iTween.Stop(incoming.gameObject);
 		iTween.MoveTo(incoming.gameObject, iTween.Hash("position", map[point],
 		                                    "islocal", true,
 		                                    "time", 0.4f));
@@ -75,6 +76,15 @@ public class PlayArea : GLMonoBehaviour {
 	}
 
 	public void SpawnCell (CellScript prefab, FlatHexPoint point) {
+		SpawnCell (prefab, point, FlatHexPoint.Zero);
+	}
+
+	public void SpawnCell (CellScript prefab, FlatHexPoint point, FlatHexPoint bumpDirection) {
+		if (!grid.Contains(point)) {
+			Debug.LogError("tried to spawn cell outside of grid");
+			return;
+		}
+
 		CellScript cell = Instantiate(prefab.gameObject).GetComponent<CellScript>();
 		Vector3 worldPoint = map[point];
 		
@@ -85,8 +95,15 @@ public class PlayArea : GLMonoBehaviour {
 		cell.grid = grid;
 		cell.hexPoint = point;
 		cell.area = this;
-		
-		grid[point] = cell;
+
+		if (bumpDirection != FlatHexPoint.Zero) {
+			MoveAndBump(cell, point, bumpDirection);
+		} else {
+			if (grid[point] != null) {
+				Destroy (grid[point].gameObject);
+			}
+			grid[point] = cell;
+		}
 	}
 
 
