@@ -70,7 +70,8 @@ public class CellScript : MonoBehaviour {
 		if (_divideChance > rng) {
 			
 			List<FlatHexPoint> freeNeighbors = neighbors.Where ((point) => grid[point] == null).ToList();
-			
+			List<FlatHexPoint> nonMutatedNeighbors = neighbors.Where ((point) => grid[point] != null && !grid[point].IsMutated()).ToList();
+
 			foreach (FlatHexPoint point in freeNeighbors) {
 				if (grid[point] == null) {
 					// send ourselves as the prefab!
@@ -79,11 +80,14 @@ public class CellScript : MonoBehaviour {
 				}
 			}
 
-			if (freeNeighbors.Count == 0 && !onlyDivideIntoEmptyNeighbour) {
-				// divide anyway because cancer!
-				FlatHexPoint[] directions = grid.GetNeighborDirections().ToArray();
-				FlatHexPoint dir = directions[Random.Range(0, directions.Length)];
-				area.SpawnCell(this, hexPoint + dir, dir);
+			if (nonMutatedNeighbors.Count > 0) {
+
+				if (freeNeighbors.Count == 0 && !onlyDivideIntoEmptyNeighbour) {
+					// divide anyway because cancer!
+					FlatHexPoint[] directions = grid.GetNeighborDirections().ToArray();
+					FlatHexPoint dir = directions[Random.Range(0, directions.Length)];
+					area.SpawnCell(this, hexPoint + dir, dir);
+				}
 			}
 		}
 	}
@@ -107,6 +111,10 @@ public class CellScript : MonoBehaviour {
 
 			Debug.Log ("Mutated!");
 		}
+	}
+
+	bool IsMutated () {
+		return _mutated;
 	}
 
 
