@@ -7,7 +7,12 @@ using Gamelogic.Grids;
 public class CellScript : MonoBehaviour {
 
 	public float _divideDelayInSeconds = 200;
-	float _divideChance = 5;
+	float _divideChance;
+	
+	public float _deathDelayInSeconds = 200;
+	float _deathChance;
+	
+
 	float mutateChance;
 	
 	public FlatHexGrid<CellScript> grid;
@@ -27,36 +32,44 @@ public class CellScript : MonoBehaviour {
 
 	void FixedUpdate () {
 		_divideChance = 1 / (_divideDelayInSeconds * (1 / Time.fixedDeltaTime));
+		_deathChance = 1 / (_deathDelayInSeconds * (1 / Time.fixedDeltaTime));
+		if (Die ()) {
+			return;
+		}
 
-		DivideCell ();
 
+		Divide ();
 	}
 
-	void DivideCell () {
+	bool Die () {
 		float rng = Random.Range (0.0f,1.0f);
 
+		if (_deathChance > rng) {
+
+			// do a death animation and Destroy at the end
+			Destroy (this.gameObject);
+		}
+
+		return false;
+	}
+
+	void Divide () {
+		float rng = Random.Range (0.0f,1.0f);
+		
 		if (_divideChance > rng) {
-
-			Debug.Log ("success");
-
-
+			
 			List<FlatHexPoint> freeNeighbors = neighbors.Where ((point) => grid[point] == null).ToList();
-			//List<FlatHexPoint> freeNeighbors = neighbors.Where ((point) => !grid.Contains(point)).ToList();
-
-
+			
 			foreach (FlatHexPoint point in freeNeighbors) {
-
 				if (grid[point] == null) {
 					area.CreateCell(point);
-
 					return;
 				}
-
 			}
-
-
 		}
 	}
+
+
 	bool IsEmpty (FlatHexPoint point) {
 		return grid[point] == null;
 	}
