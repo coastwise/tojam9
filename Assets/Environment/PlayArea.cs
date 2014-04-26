@@ -87,7 +87,7 @@ public class PlayArea : GLMonoBehaviour {
 		}
 
 		CellScript cell = Instantiate(prefab.gameObject).GetComponent<CellScript>();
-		Vector3 worldPoint = map[point];
+		Vector3 worldPoint = map[point - bumpDirection];
 		
 		cell.transform.parent = root.transform;
 		cell.transform.localScale = Vector3.one;
