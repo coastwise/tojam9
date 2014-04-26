@@ -48,7 +48,9 @@ public class PlayArea : GLMonoBehaviour {
 		CellScript bumped = grid[point];
 		if (bumped != null) MoveAndBump(bumped, point+dir, dir);
 		grid[point] = incoming;
-		incoming.transform.localPosition = map[point];
+		iTween.MoveTo(incoming, iTween.Hash("position", map[point],
+		                                    "islocal", true,
+		                                    "time", 0.4f));
 	}
 	
 	private void BuildGrid () {
