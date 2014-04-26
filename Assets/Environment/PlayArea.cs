@@ -49,10 +49,7 @@ public class PlayArea : GLMonoBehaviour {
 		if (bumped != null) MoveAndBump(bumped, point+dir, dir);
 		grid[point] = incoming;
 		incoming.hexPoint = point;
-		iTween.Stop(incoming.gameObject);
-		iTween.MoveTo(incoming.gameObject, iTween.Hash("position", map[point],
-		                                    "islocal", true,
-		                                    "time", 0.4f));
+		incoming.animationTarget = map[point];
 	}
 	
 	private void BuildGrid () {
@@ -92,6 +89,7 @@ public class PlayArea : GLMonoBehaviour {
 		cell.transform.parent = root.transform;
 		cell.transform.localScale = Vector3.one;
 		cell.transform.localPosition = worldPoint;
+		cell.animationTarget = worldPoint;
 
 		cell.grid = grid;
 		cell.hexPoint = point;
