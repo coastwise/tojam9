@@ -12,9 +12,11 @@ public class CellScript : MonoBehaviour {
 	public float _deathDelayInSeconds = 200;
 	float _deathChance;
 	
-
+	public float _mutationFactor = 0;
+	public float _mutateChance;
 	float mutateChance;
-	
+	bool _mutated = false;
+
 	public FlatHexGrid<CellScript> grid;
 	public FlatHexPoint hexPoint;
 	public PlayArea area;
@@ -33,12 +35,16 @@ public class CellScript : MonoBehaviour {
 	void FixedUpdate () {
 		_divideChance = 1 / (_divideDelayInSeconds * (1 / Time.fixedDeltaTime));
 		_deathChance = 1 / (_deathDelayInSeconds * (1 / Time.fixedDeltaTime));
+		if (!_mutated) _mutateChance = (_mutationFactor * Time.fixedDeltaTime) / 100;
+
 		if (Die ()) {
 			return;
 		}
 
 
 		Divide ();
+
+		Mutate ();
 	}
 
 	bool Die () {
@@ -67,6 +73,21 @@ public class CellScript : MonoBehaviour {
 					return;
 				}
 			}
+		}
+	}
+
+	void Mutate () {
+		float rng = Random.Range (0.0f,1.0f);
+
+		if (_mutateChance > rng) {
+			// become cancer cell
+
+			_divideDelayInSeconds /= 20;
+			_deathDelayInSeconds *= 20;
+
+			_mutateChance = 0;
+			_mutated = true;
+			Debug.Log ("Mutated!");
 		}
 	}
 
