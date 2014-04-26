@@ -54,7 +54,7 @@ public class CellScript : MonoBehaviour {
 		float rng = Random.Range (0.0f,1.0f);
 
 		int mutatedCount = 0;
-		if (grid.GetNeighbors(hexPoint, (CellScript n) => n != null && n._mutated).Count() == 6) {
+		if (!_mutated && grid.GetNeighbors(hexPoint, (CellScript n) => n != null && n._mutated).Count() == 6) {
 		
 			Destroy (this.gameObject);
 
