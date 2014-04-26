@@ -75,6 +75,11 @@ public class PlayArea : GLMonoBehaviour {
 	}
 
 	public void SpawnCell (CellScript prefab, FlatHexPoint point) {
+		if (!grid.Contains(point)) {
+			Debug.LogError("tried to spawn cell outside of grid");
+			return;
+		}
+
 		CellScript cell = Instantiate(prefab.gameObject).GetComponent<CellScript>();
 		Vector3 worldPoint = map[point];
 		
