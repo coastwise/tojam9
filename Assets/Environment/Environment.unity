@@ -246,7 +246,7 @@ MonoBehaviour:
   healthyCellPrefab: {fileID: 11400000, guid: dfbaf6ee0a2e94e598cbe024cee7e703, type: 2}
   cancerCellPrefab: {fileID: 11400000, guid: aa652036a9fc64deb85d3fdb8d0b477c, type: 2}
   root: {fileID: 2042093467}
-  gridSize: {x: 50, y: 25}
+  gridSize: {x: 100, y: 50}
 --- !u!4 &2042093469
 Transform:
   m_ObjectHideFlags: 0
