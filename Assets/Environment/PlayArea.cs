@@ -9,18 +9,20 @@ public class PlayArea : GLMonoBehaviour {
 
 	private readonly Vector2 CellDimensions = new Vector2(1,1);
 	
-	public GameObject cellPrefab;
+	public CellScript healthyCellPrefab;
+	public CellScript cancerCellPrefab;
+
 	public GameObject root;
 	
 	private FlatHexGrid<CellScript> grid;
 	private IMap3D<FlatHexPoint> map;
 
 	public Vector2 gridSize;
-	
+
 	public void Start () {
 		BuildGrid();
 	}
-	
+
 	public void Update () {
 		if(Input.GetMouseButtonDown(0)) {
 			Vector3 worldPosition = ExampleUtils.ScreenToWorld(root, Input.mousePosition);
@@ -31,11 +33,9 @@ public class PlayArea : GLMonoBehaviour {
 				MoveAndBump(grid[hexPoint], hexPoint+FlatHexPoint.North, FlatHexPoint.North);
 				grid[hexPoint] = null;
 			}
-
+			
 			else { // if cell is empty, create a sphere at that point
-
-				CreateCell(hexPoint);
-
+				SpawnCell(healthyCellPrefab, map[worldPosition]);
 			}
 		}
 	}
@@ -63,26 +63,32 @@ public class PlayArea : GLMonoBehaviour {
 			.To3DXY();
 		
 		foreach(FlatHexPoint point in grid) {
-			CreateCell (point);
+			if (Random.value < 0.5f) SpawnCell(healthyCellPrefab, point);
 		}
+
+		int x = (int)Random.Range(gridSize.x/3, 2*gridSize.x/3);
+		int y = (int)Random.Range(gridSize.y/3, 2*gridSize.y/3);
+		Debug.Log(x+","+y);
+		FlatHexPoint cancerSpawnPoint = new FlatHexPoint(x, y);
+		if (grid[cancerSpawnPoint] != null) Destroy (grid[cancerSpawnPoint]);
+		SpawnCell(cancerCellPrefab, cancerSpawnPoint);
 	}
 
-	public void CreateCell (FlatHexPoint point) {
-		CellScript cell = Instantiate(cellPrefab).GetComponent<CellScript>();
+	public void SpawnCell (CellScript prefab, FlatHexPoint point) {
+		CellScript cell = Instantiate(prefab.gameObject).GetComponent<CellScript>();
 		Vector3 worldPoint = map[point];
 		
 		cell.transform.parent = root.transform;
 		cell.transform.localScale = Vector3.one;
 		cell.transform.localPosition = worldPoint;
+
 		cell.grid = grid;
 		cell.hexPoint = point;
 		cell.area = this;
-
-		cell.renderer.material.color = ExampleUtils.colors[point.GetColor3_7()];
-		cell.name = "(" + point.X + ", " + point.Y + ")";
 		
 		grid[point] = cell;
 	}
+
 
 	public List<FlatHexPoint> GetNeighbors(FlatHexPoint point) {
 		List<FlatHexPoint> neighbors = new List<FlatHexPoint> ();
