@@ -27,6 +27,13 @@ public class CellScript : MonoBehaviour {
 	public PlayArea area;
 	private List<FlatHexPoint> neighbors;
 
+	public Vector3 animationTarget;
+	
+	void Update () {
+		iTween.MoveUpdate(gameObject, iTween.Hash("position", animationTarget,
+		                                          "islocal", true,
+		                                          "time", 0.4f));
+	}
 
 	void FixedUpdate () {
 		_divideChance = 1 / (_divideDelayInSeconds * (1 / Time.fixedDeltaTime));
