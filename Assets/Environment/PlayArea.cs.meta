@@ -2,7 +2,11 @@ fileFormatVersion: 2
 guid: 64d4dea7a7a4448e0ae4396b8a8fab05
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - healthyCellPrefab: {fileID: 11400000, guid: dfbaf6ee0a2e94e598cbe024cee7e703,
+      type: 2}
+  - cancerCellPrefab: {fileID: 11400000, guid: aa652036a9fc64deb85d3fdb8d0b477c, type: 2}
+  - root: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

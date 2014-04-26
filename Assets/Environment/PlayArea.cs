@@ -9,8 +9,8 @@ public class PlayArea : GLMonoBehaviour {
 
 	private readonly Vector2 CellDimensions = new Vector2(1,1);
 	
-	public GameObject healthyCellPrefab;
-	public GameObject cancerCellPrefab;
+	public CellScript healthyCellPrefab;
+	public CellScript cancerCellPrefab;
 
 	public GameObject root;
 	
@@ -57,8 +57,8 @@ public class PlayArea : GLMonoBehaviour {
 		SpawnCell(cancerCellPrefab, cancerSpawnPoint);
 	}
 
-	private void SpawnCell (GameObject prefab, FlatHexPoint point) {
-		CellScript cell = Instantiate(cellPrefab).GetComponent<CellScript>();
+	public void SpawnCell (CellScript prefab, FlatHexPoint point) {
+		CellScript cell = Instantiate(prefab.gameObject).GetComponent<CellScript>();
 		Vector3 worldPoint = map[point];
 		
 		cell.transform.parent = root.transform;

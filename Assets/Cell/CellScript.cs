@@ -62,7 +62,8 @@ public class CellScript : MonoBehaviour {
 			
 			foreach (FlatHexPoint point in freeNeighbors) {
 				if (grid[point] == null) {
-					area.CreateCell(point);
+					// send ourselves as the prefab!
+					area.SpawnCell(this, point);
 					return;
 				}
 			}
