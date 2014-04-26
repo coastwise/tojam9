@@ -76,6 +76,10 @@ public class PlayArea : GLMonoBehaviour {
 	}
 
 	public void SpawnCell (CellScript prefab, FlatHexPoint point) {
+		SpawnCell (prefab, point, FlatHexPoint.Zero);
+	}
+
+	public void SpawnCell (CellScript prefab, FlatHexPoint point, FlatHexPoint bumpDirection) {
 		if (!grid.Contains(point)) {
 			Debug.LogError("tried to spawn cell outside of grid");
 			return;
@@ -92,8 +96,13 @@ public class PlayArea : GLMonoBehaviour {
 		cell.hexPoint = point;
 		cell.area = this;
 
-		if (grid[point] != null) {
-			Destroy (grid[point].gameObject);
+		if (bumpDirection != FlatHexPoint.Zero) {
+			MoveAndBump(cell, point, bumpDirection);
+		} else {
+			if (grid[point] != null) {
+				Destroy (grid[point].gameObject);
+			}
+			grid[point] = cell;
 		}
 	}
 

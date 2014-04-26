@@ -75,7 +75,7 @@ public class CellScript : MonoBehaviour {
 				// divide anyway because cancer!
 				FlatHexPoint[] directions = grid.GetNeighborDirections().ToArray();
 				FlatHexPoint dir = directions[Random.Range(0, directions.Length)];
-				area.SpawnCell(this, hexPoint + dir);
+				area.SpawnCell(this, hexPoint + dir, dir);
 			}
 		}
 	}
