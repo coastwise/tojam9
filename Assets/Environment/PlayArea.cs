@@ -26,9 +26,24 @@ public class PlayArea : GLMonoBehaviour {
 			
 			FlatHexPoint hexPoint = map[worldPosition];
 			
-			if (grid.Contains(hexPoint)) {
+			if (grid.Contains(hexPoint) && grid[hexPoint] != null) {
 				MoveAndBump(grid[hexPoint], hexPoint+FlatHexPoint.North, FlatHexPoint.North);
 				grid[hexPoint] = null;
+			}
+
+			else { // if cell is empty, create a sphere at that point
+
+				GameObject cell = Instantiate(cellPrefab);
+				Vector3 worldPoint = map[hexPoint];
+				cell.transform.parent = root.transform;
+				cell.transform.localScale = Vector3.one;
+				cell.transform.localPosition = worldPoint;
+				
+				cell.renderer.material.color = ExampleUtils.colors[hexPoint.GetColor3_7()];
+				cell.name = "(" + hexPoint.X + ", " + hexPoint.Y + ")";
+				
+				grid[hexPoint] = cell;
+
 			}
 		}
 	}
