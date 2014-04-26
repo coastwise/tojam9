@@ -26,16 +26,7 @@ public class CellScript : MonoBehaviour {
 	public FlatHexPoint hexPoint;
 	public PlayArea area;
 	private List<FlatHexPoint> neighbors;
-	// Use this for initialization
-	void Start () {
-		neighbors = new List<FlatHexPoint>();
-		neighbors.AddRange(area.GetNeighbors(hexPoint));
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 
 	void FixedUpdate () {
 		_divideChance = 1 / (_divideDelayInSeconds * (1 / Time.fixedDeltaTime));
@@ -49,7 +40,7 @@ public class CellScript : MonoBehaviour {
 
 		Divide ();
 
-		Mutate ();
+		//Mutate ();
 	}
 
 	bool Die () {
@@ -68,28 +59,27 @@ public class CellScript : MonoBehaviour {
 		float rng = Random.Range (0.0f,1.0f);
 		
 		if (_divideChance > rng) {
-			
-			List<FlatHexPoint> freeNeighbors = neighbors.Where ((point) => grid[point] == null).ToList();
-			List<FlatHexPoint> nonMutatedNeighbors = neighbors.Where ((point) => grid[point] != null && !grid[point].IsMutated()).ToList();
 
-			foreach (FlatHexPoint point in freeNeighbors) {
-				if (grid[point] == null) {
+			foreach (FlatHexPoint direction in grid.GetNeighborDirections()) {
+				FlatHexPoint neighbour = hexPoint + direction;
+				if (grid[neighbour] == null) {
 					// send ourselves as the prefab!
 					area.SpawnCell(this, point);
 					return;
 				}
 			}
 
-			if (nonMutatedNeighbors.Count > 0) {
+			if (grid.GetNeighbors(hexPoint, (CellScript n) => n._mutated).Count() == 6) {
+				// don't split, totally surrounded by cancer.
+				return;
+			}
 
-				if (freeNeighbors.Count == 0 && !onlyDivideIntoEmptyNeighbour) {
-					// divide anyway because cancer!
-					
-					FlatHexPoint[] directions = grid.GetNeighborDirections().ToArray();
-					FlatHexPoint dir = directions[Random.Range(0, directions.Length)];
-					area.SpawnCell(this, hexPoint + dir, dir);
-				}
-
+			if (!onlyDivideIntoEmptyNeighbour) {
+				// divide anyway because cancer!
+				
+				FlatHexPoint[] directions = grid.GetNeighborDirections().ToArray();
+				FlatHexPoint dir = directions[Random.Range(0, directions.Length)];
+				area.SpawnCell(this, hexPoint + dir, dir);
 			}
 		}
 	}
