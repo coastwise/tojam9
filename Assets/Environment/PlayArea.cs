@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 using Gamelogic.Grids;
@@ -13,7 +14,7 @@ public class PlayArea : GLMonoBehaviour {
 
 	public GameObject root;
 	
-	private FlatHexGrid<GameObject> grid;
+	private FlatHexGrid<CellScript> grid;
 	private IMap3D<FlatHexPoint> map;
 
 	public Vector2 gridSize;
@@ -22,21 +23,21 @@ public class PlayArea : GLMonoBehaviour {
 		BuildGrid();
 	}
 
-	public void MoveAndBump (GameObject incoming, FlatHexPoint point, FlatHexPoint dir) {
+	public void MoveAndBump (CellScript incoming, FlatHexPoint point, FlatHexPoint dir) {
 		if (!grid.Contains(point)) {
-			Destroy (incoming);
+			Destroy (incoming.gameObject);
 			return;
 		}
-		GameObject bumped = grid[point];
+		CellScript bumped = grid[point];
 		if (bumped != null) MoveAndBump(bumped, point+dir, dir);
 		grid[point] = incoming;
-		iTween.MoveTo(incoming, iTween.Hash("position", map[point],
+		iTween.MoveTo(incoming.gameObject, iTween.Hash("position", map[point],
 		                                    "islocal", true,
 		                                    "time", 0.4f));
 	}
 	
 	private void BuildGrid () {
-		grid = FlatHexGrid<GameObject>.FatRectangle((int)gridSize.x, (int)gridSize.y);
+		grid = (FlatHexGrid<CellScript>)FlatHexGrid<CellScript>.FatRectangle((int)gridSize.x, (int)gridSize.y);
 		
 		map = new FlatHexMap(CellDimensions)
 			.AnchorCellMiddleCenter()
@@ -55,16 +56,33 @@ public class PlayArea : GLMonoBehaviour {
 		if (grid[cancerSpawnPoint] != null) Destroy (grid[cancerSpawnPoint]);
 		SpawnCell(cancerCellPrefab, cancerSpawnPoint);
 	}
-	
+
 	private void SpawnCell (GameObject prefab, FlatHexPoint point) {
-		GameObject cell = Instantiate(prefab);
+		CellScript cell = Instantiate(cellPrefab).GetComponent<CellScript>();
 		Vector3 worldPoint = map[point];
 		
 		cell.transform.parent = root.transform;
 		cell.transform.localScale = Vector3.one;
 		cell.transform.localPosition = worldPoint;
+
+		cell.grid = grid;
+		cell.hexPoint = point;
+		cell.area = this;
 		
 		grid[point] = cell;
 	}
 
+
+	public List<FlatHexPoint> GetNeighbors(FlatHexPoint point) {
+		List<FlatHexPoint> neighbors = new List<FlatHexPoint> ();
+
+		neighbors.Add(new FlatHexPoint(point.X,point.Y + 1));
+		neighbors.Add(new FlatHexPoint(point.X,point.Y - 1));
+		neighbors.Add(new FlatHexPoint(point.X + 1,point.Y + 1));
+		neighbors.Add(new FlatHexPoint(point.X - 1,point.Y + 1));
+		neighbors.Add(new FlatHexPoint(point.X + 1,point.Y));
+		neighbors.Add(new FlatHexPoint(point.X - 1,point.Y));
+
+		return neighbors;
+	}
 }
