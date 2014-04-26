@@ -55,6 +55,10 @@ public class CellScript : MonoBehaviour {
 	bool Die () {
 		float rng = Random.Range (0.0f,1.0f);
 
+		if (neighbors.Where ((point) => grid.Contains (point) && grid[point] != null && !grid[point].IsMutated()).ToList().Count == 0) {
+			Destroy (this.gameObject);
+		}
+
 		if (_deathChance > rng) {
 
 			// do a death animation and Destroy at the end
@@ -69,8 +73,8 @@ public class CellScript : MonoBehaviour {
 		
 		if (_divideChance > rng) {
 			
-			List<FlatHexPoint> freeNeighbors = neighbors.Where ((point) => grid[point] == null).ToList();
-			List<FlatHexPoint> nonMutatedNeighbors = neighbors.Where ((point) => grid[point] != null && !grid[point].IsMutated()).ToList();
+			List<FlatHexPoint> freeNeighbors = neighbors.Where ((point) => grid.Contains (point) && grid[point] == null).ToList();
+			List<FlatHexPoint> nonMutatedNeighbors = neighbors.Where ((point) => grid.Contains (point) && grid[point] != null && !grid[point].IsMutated()).ToList();
 
 			foreach (FlatHexPoint point in freeNeighbors) {
 				if (grid[point] == null) {
