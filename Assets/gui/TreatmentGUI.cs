@@ -189,20 +189,46 @@ public class TreatmentGUI : MonoBehaviour {
 				// 		if the player clicks on a hex
 				//			normal cell death rate is greatly increased (tripled?) for a time (5 seconds?) globally
 				//			cancer cell death rate is very greatly increased (six times?) for a time (same as above) globally
-				//			all cell mutation rate is increased (2.5x? - multiply is no good if normal rate is zero by default) for a time (same as above) in the beam
-				//			draw radiation effect, play radiation sound
+				//			draw chemo effect, play chemo sound
 			}
 			jBut++;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Methotrexate")) {
+				// a cancel button appears where the original button was
+				// the entire grid is highlighted
+				// 		if the player cancels, nothing happens
+				// 		if the player clicks on a hex
+				//			normal cell division rate is reduced (halved?) for a time (5 seconds?) globally
+				//			cancer cell division rate is reduced (thirded?) for a time (5 seconds?) globally
+				//			normal cell death rate is increased (doubled times?) for a time (same as above) globally
+				//			cancer cell death rate is increased (tripled times?) for a time (same as above) globally
+				//			draw chemo effect, play chemo sound
 			}
 			jBut++;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Doxorubicin")) {
+				// a cancel button appears where the original button was
+				// the entire grid is highlighted
+				// 		if the player cancels, nothing happens
+				// 		if the player clicks on a hex
+				//			normal cell division rate is greatly reduced (thirded?) for a time (5 seconds?) globally
+				//			cancer cell division rate is greatly reduced (1/5?) for a time (5 seconds?) globally
+				//			normal cell death rate is increased (1.5x times?) for a time (same as above) globally
+				//			cancer cell death rate is increased (doubled?) for a time (same as above) globally
+				//			draw chemo effect, play chemo sound
 			}
 			jBut++;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Cisplatin")) {
+				// a cancel button appears where the original button was
+				// the entire grid is highlighted
+				// 		if the player cancels, nothing happens
+				// 		if the player clicks on a hex
+				//			normal cell division rate is reduced (halved?) for a time (5 seconds?) globally
+				//			cancer cell division rate is reduced (halved?) for a time (5 seconds?) globally
+				//			normal cell death rate is increased (doubled times?) for a time (same as above) globally
+				//			cancer cell death rate is increased proportional to its current mutation rate (higher mutation = higher rate) for a time (same as above) globally
+				//			draw chemo effect, play chemo sound
 			}
 			jBut++;
 		}
@@ -296,18 +322,22 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut = 0;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Immunotherapy")) {
+				// cancer death rate goes up
 			}
 			jBut++;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Oncolytic Virus")) {
+				// cancer death rate goes up
 			}
 			jBut++;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Nanoparticles")) {
+				// cancer division rate greatly reduced
 			}
 			jBut++;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Goat on a Stick")) {
+				// dumb spammy click a cell to kill it
 			}
 			jBut++;
 		}
