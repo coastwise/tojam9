@@ -91,8 +91,10 @@ public class PlayArea : GLMonoBehaviour {
 		cell.grid = grid;
 		cell.hexPoint = point;
 		cell.area = this;
-		
-		grid[point] = cell;
+
+		if (grid[point] != null) {
+			Destroy (grid[point].gameObject);
+		}
 	}
 
 
