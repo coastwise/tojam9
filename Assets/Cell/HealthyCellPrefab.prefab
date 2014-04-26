@@ -69,13 +69,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b4361a02c195047a59cb347809b843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _divideDelayInSeconds: 20
-  _deathDelayInSeconds: 40
+  _divideDelayInSeconds: 200
+  _deathDelayInSeconds: 400
   _mutationFactor: 1
   _mutateChance: 0
   onlyDivideIntoEmptyNeighbour: 1
   _mutated: 0
   area: {fileID: 0}
+  animationTarget: {x: 0, y: 0, z: 0}
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1
