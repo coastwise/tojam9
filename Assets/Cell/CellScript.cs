@@ -56,7 +56,9 @@ public class CellScript : MonoBehaviour {
 		float rng = Random.Range (0.0f,1.0f);
 
 		if (neighbors.Where ((point) => grid.Contains (point) && grid[point] != null && !grid[point].IsMutated()).ToList().Count == 0) {
-			Destroy (this.gameObject);
+			if (neighbors.Where ((point) => grid.Contains (point) && grid[point] != null && grid[point].IsMutated()).ToList().Count == 6) {
+				Destroy (this.gameObject);
+			}
 		}
 
 		if (_deathChance > rng) {
