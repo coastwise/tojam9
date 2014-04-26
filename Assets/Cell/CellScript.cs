@@ -62,7 +62,7 @@ public class CellScript : MonoBehaviour {
 
 			foreach (FlatHexPoint direction in grid.GetNeighborDirections()) {
 				FlatHexPoint neighbour = hexPoint + direction;
-				if (grid[neighbour] == null) {
+				if (grid.Contains(neighbour) && grid[neighbour] == null) {
 					// send ourselves as the prefab!
 					area.SpawnCell(this, neighbour, direction);
 					return;
@@ -77,7 +77,9 @@ public class CellScript : MonoBehaviour {
 			if (!onlyDivideIntoEmptyNeighbour) {
 				// divide anyway because cancer!
 				
-				FlatHexPoint[] directions = grid.GetNeighborDirections().ToArray();
+				FlatHexPoint[] directions = grid.GetNeighborDirections()
+					.Where(d => grid.Contains(hexPoint + d))
+					.ToArray();
 				FlatHexPoint dir = directions[Random.Range(0, directions.Length)];
 				area.SpawnCell(this, hexPoint + dir, dir);
 			}
