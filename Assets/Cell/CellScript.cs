@@ -64,7 +64,7 @@ public class CellScript : MonoBehaviour {
 				FlatHexPoint neighbour = hexPoint + direction;
 				if (grid[neighbour] == null) {
 					// send ourselves as the prefab!
-					area.SpawnCell(this, point);
+					area.SpawnCell(this, neighbour, direction);
 					return;
 				}
 			}
