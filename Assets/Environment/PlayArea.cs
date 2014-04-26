@@ -7,15 +7,15 @@ using Gamelogic.Grids;
 
 public class PlayArea : GLMonoBehaviour {
 
-	private readonly Vector2 CellDimensions = new Vector2(1,1);
+	public readonly Vector2 CellDimensions = new Vector2(1,1);
 	
 	public CellScript healthyCellPrefab;
 	public CellScript cancerCellPrefab;
 
 	public GameObject root;
 	
-	private FlatHexGrid<CellScript> grid;
-	private IMap3D<FlatHexPoint> map;
+	public FlatHexGrid<CellScript> grid;
+	public IMap3D<FlatHexPoint> map;
 
 	public Vector2 gridSize;
 
