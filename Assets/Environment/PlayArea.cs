@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 using Gamelogic.Grids;
 
@@ -25,12 +26,22 @@ public class PlayArea : GLMonoBehaviour {
 			
 			FlatHexPoint hexPoint = map[worldPosition];
 			
-			if(grid.Contains(hexPoint)) {
-				foreach (FlatHexPoint n in grid.GetNeighbors(hexPoint)) {
-					Destroy(grid[n]);
-				}
+			if (grid.Contains(hexPoint)) {
+				MoveAndBump(grid[hexPoint], hexPoint+FlatHexPoint.North, FlatHexPoint.North);
+				grid[hexPoint] = null;
 			}
 		}
+	}
+
+	public void MoveAndBump (GameObject incoming, FlatHexPoint point, FlatHexPoint dir) {
+		if (!grid.Contains(point)) {
+			Destroy (incoming);
+			return;
+		}
+		GameObject bumped = grid[point];
+		if (bumped != null) MoveAndBump(bumped, point+dir, dir);
+		grid[point] = incoming;
+		incoming.transform.localPosition = map[point];
 	}
 	
 	private void BuildGrid () {
