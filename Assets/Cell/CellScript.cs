@@ -73,6 +73,7 @@ public class CellScript : MonoBehaviour {
 
 			if (freeNeighbors.Count == 0 && !onlyDivideIntoEmptyNeighbour) {
 				// divide anyway because cancer!
+
 				FlatHexPoint[] directions = grid.GetNeighborDirections().ToArray();
 				FlatHexPoint dir = directions[Random.Range(0, directions.Length)];
 				area.SpawnCell(this, hexPoint + dir, dir);
