@@ -53,10 +53,11 @@ public class CellScript : MonoBehaviour {
 	bool Die () {
 		float rng = Random.Range (0.0f,1.0f);
 
-		if (neighbors.Where ((point) => grid.Contains (point) && grid[point] != null && !grid[point].IsMutated()).ToList().Count == 0) {
-			if (neighbors.Where ((point) => grid.Contains (point) && grid[point] != null && grid[point].IsMutated()).ToList().Count == 6) {
-				Destroy (this.gameObject);
-			}
+		int mutatedCount = 0;
+		if (grid.GetNeighbors(hexPoint, (CellScript n) => n != null && n._mutated).Count() == 6) {
+		
+			Destroy (this.gameObject);
+
 		}
 
 		if (_deathChance > rng) {
@@ -121,7 +122,7 @@ public class CellScript : MonoBehaviour {
 		}
 	}
 
-	bool IsMutated () {
+	public bool IsMutated () {
 		return _mutated;
 	}
 
