@@ -15,7 +15,7 @@ public class CellScript : MonoBehaviour {
 	public float _mutationFactor = 0;
 	public float _mutateChance;
 	float mutateChance;
-	bool _mutated = false;
+	public bool _mutated = false;
 
 	public FlatHexGrid<CellScript> grid;
 	public FlatHexPoint hexPoint;
@@ -87,6 +87,10 @@ public class CellScript : MonoBehaviour {
 
 			_mutateChance = 0;
 			_mutated = true;
+
+			Material newMat = Resources.Load ("CancerCellMaterial", typeof(Material)) as Material;
+			gameObject.renderer.material = newMat;
+
 			Debug.Log ("Mutated!");
 		}
 	}
