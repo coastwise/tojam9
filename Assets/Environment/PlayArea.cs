@@ -33,6 +33,7 @@ public class PlayArea : GLMonoBehaviour {
 		grid[point] = incoming;
 		incoming.hexPoint = point;
 		incoming.animationTarget = map[point];
+		incoming.animating = true;
 	}
 	
 	private void BuildGrid () {
@@ -73,6 +74,7 @@ public class PlayArea : GLMonoBehaviour {
 		cell.transform.localScale = Vector3.one;
 		cell.transform.localPosition = worldPoint;
 		cell.animationTarget = worldPoint;
+		cell.animating = true;
 
 		cell.grid = grid;
 		cell.hexPoint = point;

@@ -27,12 +27,15 @@ public class CellScript : MonoBehaviour {
 	public PlayArea area;
 	private List<FlatHexPoint> neighbors;
 
+	public bool animating = false;
 	public Vector3 animationTarget;
 	
 	void Update () {
+		if (!animating) return;
 		iTween.MoveUpdate(gameObject, iTween.Hash("position", animationTarget,
 		                                          "islocal", true,
 		                                          "time", 0.4f));
+		if ( Vector3.Distance(gameObject.transform.localPosition, animationTarget) < 0.001f) animating = false;
 	}
 
 	void FixedUpdate () {
