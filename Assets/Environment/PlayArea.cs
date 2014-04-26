@@ -23,23 +23,6 @@ public class PlayArea : GLMonoBehaviour {
 		BuildGrid();
 	}
 
-	public void Update () {
-		if(Input.GetMouseButtonDown(0)) {
-			Vector3 worldPosition = ExampleUtils.ScreenToWorld(root, Input.mousePosition);
-			
-			FlatHexPoint hexPoint = map[worldPosition];
-			
-			if (grid.Contains(hexPoint) && grid[hexPoint] != null) {
-				MoveAndBump(grid[hexPoint], hexPoint+FlatHexPoint.North, FlatHexPoint.North);
-				grid[hexPoint] = null;
-			}
-			
-			else { // if cell is empty, create a sphere at that point
-				SpawnCell(healthyCellPrefab, map[worldPosition]);
-			}
-		}
-	}
-
 	public void MoveAndBump (CellScript incoming, FlatHexPoint point, FlatHexPoint dir) {
 		if (!grid.Contains(point)) {
 			Destroy (incoming.gameObject);

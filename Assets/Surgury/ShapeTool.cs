@@ -13,12 +13,38 @@ public class ShapeTool : MonoBehaviour {
 
 	void Start () {
 		polygon = GetComponent<PolygonCollider2D>();
+
+		// Use the triangulator to get indices for creating triangles
+		Triangulator tr = new Triangulator(polygon.points);
+		int[] indices = tr.Triangulate();
+
+		// Create the Vector3 vertices
+		Vector3[] vertices = new Vector3[polygon.points.Length];
+		for (int i=0; i<polygon.points.Length; i++) {
+			vertices[i] = new Vector3(polygon.points[i].x, polygon.points[i].y, 0);
+		}
+		
+		// Create the mesh
+		Mesh msh = new Mesh();
+		msh.vertices = vertices;
+		msh.triangles = indices;
+		msh.RecalculateNormals();
+		msh.RecalculateBounds();
+		
+		// Set up game object with mesh;
+		gameObject.AddComponent(typeof(MeshRenderer));
+		MeshFilter filter = gameObject.AddComponent(typeof(MeshFilter)) as MeshFilter;
+		filter.mesh = msh;
+		renderer.material = hilight;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		Vector3 worldPosition = ExampleUtils.ScreenToWorld(area.root, Input.mousePosition);
+		worldPosition = new Vector3(worldPosition.x, worldPosition.y, -1);
 		this.transform.localPosition = worldPosition;
+
+		if (!Input.GetMouseButtonDown(0)) return; // only destroy if we click
 
 		if (area.grid.Contains(area.map[worldPosition])) {
 			Debug.LogWarning(worldPosition);
@@ -44,8 +70,6 @@ public class ShapeTool : MonoBehaviour {
 				FlatHexPoint point = area.map[test];
 				Debug.Log(point);
 				if (area.grid.Contains(point) && area.grid[point] != null) {
-					// TODO: hilight instead of destroy (until they click)
-					//area.grid[point].renderer.materials[1] = hilight;
 					Destroy(area.grid[point].gameObject);
 				}
 			}
