@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 using Gamelogic.Grids;
@@ -11,7 +12,7 @@ public class PlayArea : GLMonoBehaviour {
 	public GameObject cellPrefab;
 	public GameObject root;
 	
-	private FlatHexGrid<GameObject> grid;
+	private FlatHexGrid<CellScript> grid;
 	private IMap3D<FlatHexPoint> map;
 
 	public Vector2 gridSize;
@@ -33,34 +34,25 @@ public class PlayArea : GLMonoBehaviour {
 
 			else { // if cell is empty, create a sphere at that point
 
-				GameObject cell = Instantiate(cellPrefab);
-				Vector3 worldPoint = map[hexPoint];
-				cell.transform.parent = root.transform;
-				cell.transform.localScale = Vector3.one;
-				cell.transform.localPosition = worldPoint;
-				
-				cell.renderer.material.color = ExampleUtils.colors[hexPoint.GetColor3_7()];
-				cell.name = "(" + hexPoint.X + ", " + hexPoint.Y + ")";
-				
-				grid[hexPoint] = cell;
+				CreateCell(hexPoint);
 
 			}
 		}
 	}
 
-	public void MoveAndBump (GameObject incoming, FlatHexPoint point, FlatHexPoint dir) {
+	public void MoveAndBump (CellScript incoming, FlatHexPoint point, FlatHexPoint dir) {
 		if (!grid.Contains(point)) {
-			Destroy (incoming);
+			Destroy (incoming.gameObject);
 			return;
 		}
-		GameObject bumped = grid[point];
+		CellScript bumped = grid[point];
 		if (bumped != null) MoveAndBump(bumped, point+dir, dir);
 		grid[point] = incoming;
 		incoming.transform.localPosition = map[point];
 	}
 	
 	private void BuildGrid () {
-		grid = FlatHexGrid<GameObject>.FatRectangle((int)gridSize.x, (int)gridSize.y);
+		grid = (FlatHexGrid<CellScript>)FlatHexGrid<CellScript>.FatRectangle((int)gridSize.x, (int)gridSize.y);
 		
 		map = new FlatHexMap(CellDimensions)
 			.AnchorCellMiddleCenter()
@@ -69,17 +61,37 @@ public class PlayArea : GLMonoBehaviour {
 			.To3DXY();
 		
 		foreach(FlatHexPoint point in grid) {
-			GameObject cell = Instantiate(cellPrefab);
-			Vector3 worldPoint = map[point];
-			
-			cell.transform.parent = root.transform;
-			cell.transform.localScale = Vector3.one;
-			cell.transform.localPosition = worldPoint;
-			
-			cell.renderer.material.color = ExampleUtils.colors[point.GetColor3_7()];
-			cell.name = "(" + point.X + ", " + point.Y + ")";
-			
-			grid[point] = cell;
+			CreateCell (point);
 		}
+	}
+
+	public void CreateCell (FlatHexPoint point) {
+		CellScript cell = Instantiate(cellPrefab).GetComponent<CellScript>();
+		Vector3 worldPoint = map[point];
+		
+		cell.transform.parent = root.transform;
+		cell.transform.localScale = Vector3.one;
+		cell.transform.localPosition = worldPoint;
+		cell.grid = grid;
+		cell.hexPoint = point;
+		cell.area = this;
+
+		cell.renderer.material.color = ExampleUtils.colors[point.GetColor3_7()];
+		cell.name = "(" + point.X + ", " + point.Y + ")";
+		
+		grid[point] = cell;
+	}
+
+	public List<FlatHexPoint> GetNeighbors(FlatHexPoint point) {
+		List<FlatHexPoint> neighbors = new List<FlatHexPoint> ();
+
+		neighbors.Add(new FlatHexPoint(point.X,point.Y + 1));
+		neighbors.Add(new FlatHexPoint(point.X,point.Y - 1));
+		neighbors.Add(new FlatHexPoint(point.X + 1,point.Y + 1));
+		neighbors.Add(new FlatHexPoint(point.X - 1,point.Y + 1));
+		neighbors.Add(new FlatHexPoint(point.X + 1,point.Y));
+		neighbors.Add(new FlatHexPoint(point.X - 1,point.Y));
+
+		return neighbors;
 	}
 }
