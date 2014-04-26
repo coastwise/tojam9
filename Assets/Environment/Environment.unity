@@ -243,8 +243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d4dea7a7a4448e0ae4396b8a8fab05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthyCellPrefab: {fileID: 100000, guid: dfbaf6ee0a2e94e598cbe024cee7e703, type: 2}
-  cancerCellPrefab: {fileID: 100000, guid: aa652036a9fc64deb85d3fdb8d0b477c, type: 2}
+  healthyCellPrefab: {fileID: 11400000, guid: dfbaf6ee0a2e94e598cbe024cee7e703, type: 2}
+  cancerCellPrefab: {fileID: 11400000, guid: aa652036a9fc64deb85d3fdb8d0b477c, type: 2}
   root: {fileID: 2042093467}
   gridSize: {x: 19, y: 19}
 --- !u!4 &2042093469
