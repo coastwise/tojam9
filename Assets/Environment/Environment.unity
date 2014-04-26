@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d4dea7a7a4448e0ae4396b8a8fab05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellPrefab: {fileID: 100000, guid: 0fbf6f6fc061a43d2b83471535d1da70, type: 2}
+  cellPrefab: {fileID: 100000, guid: c1eec9adeaa4e8a4cbd5a863eb454f0d, type: 2}
   root: {fileID: 2042093467}
   gridSize: {x: 19, y: 19}
 --- !u!4 &2042093469
