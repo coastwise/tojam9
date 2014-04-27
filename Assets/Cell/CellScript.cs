@@ -106,7 +106,8 @@ public class CellScript : MonoBehaviour {
 				}
 			}
 
-			if (grid.GetNeighbors(hexPoint, (CellScript n) => n._mutated).Count() == 6) {
+			if (grid.GetNeighbors(hexPoint, (CellScript n) => n._mutated).Count() == 
+			    grid.GetNeighbors(hexPoint, (CellScript n) => n != null).Count()) {
 				// don't split, totally surrounded by cancer.
 				return;
 			}

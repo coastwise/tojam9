@@ -292,7 +292,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1817,7 +1817,7 @@ MonoBehaviour:
   healthyCellPrefab: {fileID: 11400000, guid: 0b9f3ada8781c744ab8b892ab496c92b, type: 2}
   cancerCellPrefab: {fileID: 11400000, guid: 93f70df4ddc5c2748abe3e39b505c3a0, type: 2}
   root: {fileID: 2042093467}
-  gridSize: {x: 40, y: 20}
+  gridSize: {x: 80, y: 40}
 --- !u!4 &2042093469
 Transform:
   m_ObjectHideFlags: 0
