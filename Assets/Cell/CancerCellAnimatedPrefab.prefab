@@ -59,6 +59,7 @@ MonoBehaviour:
   _mutationFactor: 0
   _mutateChance: 1
   onlyDivideIntoEmptyNeighbour: 0
+  _mutated: 1
   area: {fileID: 0}
   animating: 0
   animationTarget: {x: 0, y: 0, z: 0}
