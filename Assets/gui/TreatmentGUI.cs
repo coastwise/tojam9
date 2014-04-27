@@ -9,10 +9,9 @@ public class TreatmentGUI : MonoBehaviour {
 	public Treatment laparoscopic;
 	public Treatment laser;
 
-	private int openedButton = 0;		// 0 for no buttons
+	public GUISkin cooldownBarSkin;
 
-	private int cooldownTest = 500;
-	private int cooldownMax = 500;
+	private int openedButton = 0;		// 0 for no buttons
 
 	private static Dictionary<TreatmentType, float> Cooldown;
 	private static Dictionary<TreatmentType, float> CooldownMax;
@@ -41,7 +40,13 @@ public class TreatmentGUI : MonoBehaviour {
 
 	void Update () {
 		foreach (TreatmentType type in treatmentTypes) {
-			if (Cooldown[type] > 0) Cooldown[type] -= Time.deltaTime;
+			if (Cooldown[type] > 0){
+				Cooldown[type] -= Time.deltaTime;
+				if (Cooldown[type] < 0)
+				{
+					Cooldown[type] = 0;
+				}
+			}
 		}
 	}
 
@@ -59,11 +64,6 @@ public class TreatmentGUI : MonoBehaviour {
 	}
 
 	void OnGUI () {
-
-		cooldownTest--;
-		if (cooldownTest < 1) {
-			cooldownTest = cooldownMax;
-		}
 
 		var numButtons = 6;
 		
@@ -101,7 +101,7 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 		}
 
-		GUI.Box(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)((buttonWidth * Cooldown[TreatmentType.Surgery]) / CooldownMax[TreatmentType.Surgery]), (float)buttonHeight), "");
+
 		
 		if (openedButton == iBut + 1) {
 			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
@@ -447,13 +447,28 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut++;
 			
 					if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Goat on a Stick", "No explanation necessary.\n"))) {
-				// dumb spammy click a cell to kill it
+				// dumb spammy click a cell to kill it goat lol
 			}
 			jBut++;
 
 			GUI.Label (new Rect ((float)(buttonWidth + buttonPad * 5), (float)((iBut * (buttonHeight + buttonPad)) + buttonHeight) - 10, (float)popWidth, 40), GUI.tooltip);
 		}
 		iBut++;
+
+
+
+		// draw cooldown bars
+		GUI.skin = cooldownBarSkin;
+		iBut = 0;
+
+		GUI.Box(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)((buttonWidth * Cooldown[TreatmentType.Surgery]) / CooldownMax[TreatmentType.Surgery]), (float)buttonHeight), "");
+		iBut++;
+		// ...
+
+
+
+
+
 
 
 		// check for clicks outside the GUI and close any open tab

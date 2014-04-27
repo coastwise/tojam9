@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 101512cdb007a48ed950db28c2bb7368
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - area: {instanceID: 0}
+  - healthyPic: {instanceID: 0}
+  - cancerPic: {instanceID: 0}
+  - healthyBarSkin: {fileID: 11400000, guid: ce3f7ab27c9dc4a9fb36f86d35d1cbb3, type: 2}
+  - cancerBarSkin: {fileID: 11400000, guid: 71d99f39007ab496681a878be2d42a88, type: 2}
+  - emptyBarSkin: {fileID: 11400000, guid: a9a7cfaf2ea994797a5ae77fca26ebb7, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
