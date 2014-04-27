@@ -10,17 +10,20 @@ public class CellScript : MonoBehaviour {
 
 	public float _divideDelayInSeconds = 200;
 	float _divideChance;
-	
+	float _calcDivide;
+
 	public float _deathDelayInSeconds = 200;
 	float _deathChance;
+	float _calcDeath;
 
 	public float _mutationFactor = 0;
 	public float _mutateChance;
+	float clacMutate;
 
 	public bool onlyDivideIntoEmptyNeighbour = true;
 
 	float mutateChance;
-	private bool _mutated = false;
+	public bool _mutated;
 
 	public FlatHexGrid<CellScript> grid;
 	public FlatHexPoint hexPoint;
@@ -38,6 +41,21 @@ public class CellScript : MonoBehaviour {
 
 	public static int healthyCount = 0;
 	public static int cancerCount = 0;
+
+	public float chemoBuff = 1;
+	public float radiationBuff = 1;
+
+	public IEnumerator ApplyChemo(float buff, float duration) {
+		chemoBuff += buff;
+		yield return new WaitForSeconds (duration);
+		chemoBuff -= buff;
+	}
+	
+	public IEnumerator ApplyRadiation(float buff, float duration) {
+		radiationBuff += buff;
+		yield return new WaitForSeconds (duration);
+		radiationBuff -= buff;
+	}
 
 	void Start(){
 		anim = this.GetComponent<Animator>();
@@ -132,7 +150,7 @@ public class CellScript : MonoBehaviour {
 	void Mutate () {
 		float rng = Random.Range (0.0f,1.0f);
 
-		if (_mutateChance > rng) {
+		if (!_mutated && _mutateChance > rng) {
 			// become cancer cell
 
 			_divideDelayInSeconds /= 4;

@@ -54,9 +54,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b4361a02c195047a59cb347809b843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _divideDelayInSeconds: 50
-  _deathDelayInSeconds: 50
-  _mutationFactor: .0500000007
+  _divideDelayInSeconds: 100
+  _deathDelayInSeconds: 100
+  _mutationFactor: .00999999978
   _mutateChance: 0
   onlyDivideIntoEmptyNeighbour: 1
   _mutated: 0
@@ -67,6 +67,8 @@ MonoBehaviour:
   timeSinceMutation: 0
   animTime: 1
   cancer: 0
+  chemoBuff: 1
+  radiationBuff: 1
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

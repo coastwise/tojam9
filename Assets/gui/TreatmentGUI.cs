@@ -8,6 +8,7 @@ public class TreatmentGUI : MonoBehaviour {
 	public Treatment radical;
 	public Treatment laparoscopic;
 	public Treatment laser;
+	public Treatment Chloromethine;
 
 	public GUISkin cooldownBarSkin;
 
@@ -270,6 +271,8 @@ public class TreatmentGUI : MonoBehaviour {
 				//			normal cell death rate is greatly increased (tripled?) for a time (5 seconds?) globally
 				//			cancer cell death rate is very greatly increased (six times?) for a time (same as above) globally
 				//			draw chemo effect, play chemo sound
+				if (Cooldown[TreatmentType.Chemo] <= 0)
+					Chloromethine.gameObject.SetActive(true);
 			}
 			jBut++;
 			

@@ -67,6 +67,8 @@ MonoBehaviour:
   timeSinceMutation: 0
   animTime: 1
   cancer: 0
+  chemoBuff: 1
+  radiationBuff: 1
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
