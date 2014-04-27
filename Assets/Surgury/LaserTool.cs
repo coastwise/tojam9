@@ -83,11 +83,13 @@ public class LaserTool : Treatment {
 			if (area.grid[testPos] != null) {
 				Destroy(area.grid[testPos].gameObject);
 			}
+			gameObject.audio.Play();
 		}
 	}
 
 	public void ZapComplete () {
 		effect.SetActive(false);
 		gameObject.SetActive(false);
+		gameObject.audio.Stop();
 	}
 }
