@@ -46,9 +46,7 @@ public class ShapeTool : Treatment {
 
 		if (!Input.GetMouseButtonDown(0)) return; // only destroy if we click
 
-		if (area.grid.Contains(area.map[worldPosition])) {
-			Debug.LogWarning(worldPosition);
-		} else return;
+		if (!area.grid.Contains(area.map[worldPosition])) return;
 
 		Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
 		Vector2 max = new Vector2(float.MinValue, float.MinValue);
@@ -68,7 +66,6 @@ public class ShapeTool : Treatment {
 				}
 
 				FlatHexPoint point = area.map[test];
-				Debug.Log(point);
 				if (area.grid.Contains(point) && area.grid[point] != null) {
 					Destroy(area.grid[point].gameObject);
 				}
