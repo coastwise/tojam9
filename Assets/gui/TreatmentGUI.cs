@@ -14,8 +14,10 @@ public class TreatmentGUI : MonoBehaviour {
 	private int cooldownTest = 500;
 	private int cooldownMax = 500;
 
-	public static Dictionary<TreatmentType, float> Cooldown;// = new Dictionary<TreatmentType, float>();
-	
+	private static Dictionary<TreatmentType, float> Cooldown;
+	private static Dictionary<TreatmentType, float> CooldownMax;
+	private List<TreatmentType> treatmentTypes = new List<TreatmentType>();
+
 	void Start () {
 		Cooldown = new Dictionary<TreatmentType, float>();
 		Cooldown.Add(TreatmentType.Surgery, 0);
@@ -23,18 +25,31 @@ public class TreatmentGUI : MonoBehaviour {
 		Cooldown.Add(TreatmentType.Radiation, 0);
 		Cooldown.Add(TreatmentType.Targeted, 0);
 		Cooldown.Add(TreatmentType.FutureTech, 100);
+
+		CooldownMax = new Dictionary<TreatmentType, float>();
+		CooldownMax.Add(TreatmentType.Surgery, 100);
+		CooldownMax.Add(TreatmentType.Chemo, 100);
+		CooldownMax.Add(TreatmentType.Radiation, 100);
+		CooldownMax.Add(TreatmentType.Targeted, 100);
+		CooldownMax.Add(TreatmentType.FutureTech, 100);
+
+		treatmentTypes = new List<TreatmentType>();
+		foreach (TreatmentType type in Cooldown.Keys) {
+			treatmentTypes.Add(type);
+		}
 	}
 
 	void Update () {
-		List<TreatmentType> types = new List<TreatmentType>();
-		foreach (TreatmentType type in Cooldown.Keys) {
-			types.Add(type);
-		}
-		foreach (TreatmentType type in types) {
-			Cooldown[type] -= Time.deltaTime;
+		foreach (TreatmentType type in treatmentTypes) {
+			if (Cooldown[type] > 0) Cooldown[type] -= Time.deltaTime;
 		}
 	}
-	
+
+	public static void AddCooldown (TreatmentType type, float cooldown) {
+		Cooldown[type] += cooldown;
+		CooldownMax[type] = Cooldown[type];
+	}
+
 	void OnGUI () {
 
 		cooldownTest--;
@@ -78,7 +93,7 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 		}
 
-		GUI.Box(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)((buttonWidth * cooldownTest) / cooldownMax), (float)buttonHeight), "");
+		GUI.Box(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)((buttonWidth * Cooldown[TreatmentType.Surgery]) / CooldownMax[TreatmentType.Surgery]), (float)buttonHeight), "");
 		
 		if (openedButton == iBut + 1) {
 			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
