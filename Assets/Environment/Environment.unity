@@ -430,8 +430,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   area: {fileID: 2042093468}
-  healthyPic: {fileID: 2800000, guid: 00ae76bb7a72b46a3acff858fe87161c, type: 3}
-  cancerPic: {fileID: 2800000, guid: 0f831b033d65844d190d1d9b6f388991, type: 3}
+  healthyPic: {fileID: 2800000, guid: 5531be7cef2cb4be59b129e0c21d66a7, type: 3}
+  cancerPic: {fileID: 2800000, guid: 7c947b09529194520a7c33ad761e8997, type: 3}
   healthyBarSkin: {fileID: 11400000, guid: ce3f7ab27c9dc4a9fb36f86d35d1cbb3, type: 2}
   cancerBarSkin: {fileID: 11400000, guid: 71d99f39007ab496681a878be2d42a88, type: 2}
   emptyBarSkin: {fileID: 11400000, guid: a9a7cfaf2ea994797a5ae77fca26ebb7, type: 2}
@@ -456,6 +456,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1092072612}
   - 114: {fileID: 1092072611}
+  - 82: {fileID: 1092072613}
   m_Layer: 0
   m_Name: GUI
   m_TagString: Untagged
@@ -479,6 +480,7 @@ MonoBehaviour:
   laparoscopic: {fileID: 1784380682}
   laser: {fileID: 1996545029}
   cooldownBarSkin: {fileID: 11400000, guid: ab8b019bc501146f39aac577fd5afb91, type: 2}
+  clickSound: {fileID: 8300000, guid: f1e23e20ebd8b4e7b9401f2efcac1f9e, type: 3}
 --- !u!4 &1092072612
 Transform:
   m_ObjectHideFlags: 0
@@ -490,6 +492,64 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!82 &1092072613
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1092072610}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: f1e23e20ebd8b4e7b9401f2efcac1f9e, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!1001 &1161630662
 Prefab:
   m_ObjectHideFlags: 0
