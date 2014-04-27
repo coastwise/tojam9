@@ -36,19 +36,26 @@ public class LaserTool : Treatment {
 			lineRenderer.SetPosition(1, endPoint);
 
 			if (Input.GetMouseButtonDown(0)) {
-
-				float dist = Vector3.Distance(startPoint, endPoint);
-				for (int i = 0; i < dist; i++) {
-					float t = (float) i / dist;
-					Vector3 test = Vector3.Lerp(startPoint, endPoint, t);
-					FlatHexPoint testPos = area.map[test];
-					if (area.grid[testPos] != null) {
-						Destroy(area.grid[testPos].gameObject);
-					}
-				}
-
-				Use();
+				StartCoroutine(Zap());
 			}
 		}
+	}
+
+	IEnumerator Zap () {
+		lineRenderer.enabled = false;
+		TreatmentGUI.AddCooldown(type, cooldown);
+
+		float dist = Vector3.Distance(startPoint, endPoint);
+		for (int i = 0; i < dist; i++) {
+			float t = (float) i / dist;
+			Vector3 test = Vector3.Lerp(startPoint, endPoint, t);
+			FlatHexPoint testPos = area.map[test];
+			if (area.grid[testPos] != null) {
+				Destroy(area.grid[testPos].gameObject);
+			}
+			yield return new WaitForSeconds(0.1f);
+		}
+
+		gameObject.SetActive(false);
 	}
 }
