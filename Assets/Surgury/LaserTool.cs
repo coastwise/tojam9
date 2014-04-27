@@ -39,11 +39,11 @@ public class LaserTool : Treatment {
 
 				float dist = Vector3.Distance(startPoint, endPoint);
 				for (int i = 0; i < dist; i++) {
-					float t = dist / (float) i;
+					float t = (float) i / dist;
 					Vector3 test = Vector3.Lerp(startPoint, endPoint, t);
 					FlatHexPoint testPos = area.map[test];
 					if (area.grid[testPos] != null) {
-						Destroy(area.grid[testPos]);
+						Destroy(area.grid[testPos].gameObject);
 					}
 				}
 
