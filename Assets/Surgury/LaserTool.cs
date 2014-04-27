@@ -16,7 +16,14 @@ public class LaserTool : Treatment {
 	public GameObject effect;
 
 	protected LineRenderer lineRenderer;
-	
+
+	void Start () {
+		effect.renderer.sortingOrder = 2;
+		effect.renderer.sortingLayerName = "overlay";
+		lineRenderer.sortingOrder = 2;
+		lineRenderer.sortingLayerName = "overlay";
+	}
+
 	void OnEnable () {
 		startPositionSet = false;
 		lineRenderer = gameObject.GetComponent<LineRenderer>();

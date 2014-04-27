@@ -169,12 +169,10 @@ public class CellScript : MonoBehaviour {
 
 			anim.SetBool("mutate", true);
 			timeSinceMutation = Time.time;
-			Debug.Log("timesincemutation: " + timeSinceMutation);
 
 			GetComponent<SpriteRenderer>().sortingLayerName = "cancer";
 			GetComponent<SpriteRenderer>().sortingOrder = 1;
 
-			Debug.Log ("Mutated!");
 		}
 	}
 
