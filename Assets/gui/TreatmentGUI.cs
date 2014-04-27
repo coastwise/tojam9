@@ -50,6 +50,14 @@ public class TreatmentGUI : MonoBehaviour {
 		CooldownMax[type] = Cooldown[type];
 	}
 
+	public void EnableSurgery (Treatment surgery) {
+		resection.gameObject.SetActive(false);
+		radical.gameObject.SetActive(false);
+		laparoscopic.gameObject.SetActive(false);
+		//laser.gameObject.SetActive(false);
+		surgery.gameObject.SetActive(true);
+	}
+
 	void OnGUI () {
 
 		cooldownTest--;
@@ -110,7 +118,7 @@ public class TreatmentGUI : MonoBehaviour {
 				//			all cells in the region die immediately
 				//			draw surgery effect, play surgery sound
 				if (Cooldown[TreatmentType.Surgery] <= 0)
-					resection.gameObject.SetActive(true);
+					EnableSurgery(resection);
 			}
 			jBut++;
 
@@ -122,7 +130,7 @@ public class TreatmentGUI : MonoBehaviour {
 				//			all cells in the region die immediately
 				//			draw surgery effect, play surgery sound
 				if (Cooldown[TreatmentType.Surgery] <= 0)
-					radical.gameObject.SetActive(true);
+					EnableSurgery(radical);
 			}
 			jBut++;
 
@@ -134,7 +142,7 @@ public class TreatmentGUI : MonoBehaviour {
 				//			all cells in the region die immediately
 				//			draw surgery effect, play surgery sound
 				if (Cooldown[TreatmentType.Surgery] <= 0)
-					laparoscopic.gameObject.SetActive(true);
+					EnableSurgery(laparoscopic);
 			}
 			jBut++;
 
@@ -146,7 +154,7 @@ public class TreatmentGUI : MonoBehaviour {
 				//			all cells in the line region die immediately
 				//			draw laser effect, play laser sound (pew pew)
 				if (Cooldown[TreatmentType.Surgery] <= 0)
-					laser.gameObject.SetActive(true);
+					EnableSurgery(laser);
 			}
 			jBut++;
 
