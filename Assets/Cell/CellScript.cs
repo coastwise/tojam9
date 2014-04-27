@@ -38,6 +38,7 @@ public class CellScript : MonoBehaviour {
 
 	void Start(){
 		anim = this.GetComponent<Animator>();
+		StartCoroutine (StartCoroutineDie());
 	}
 
 	void Update () {
@@ -60,35 +61,20 @@ public class CellScript : MonoBehaviour {
 	void FixedUpdate () {
 
 		_divideChance = 1 / (_divideDelayInSeconds * (1 / Time.fixedDeltaTime));
-		_deathChance = 1 / (_deathDelayInSeconds * (1 / Time.fixedDeltaTime));
+		//_deathChance = 1 / _deathDelayInSeconds;
 		if (!_mutated) _mutateChance = (_mutationFactor * Time.fixedDeltaTime) / 100;
-
-		if (Die ()) {
-			return;
-		}
-
+		
 		Divide ();
 
 		Mutate ();
 	}
 
 	bool Die () {
-		float rng = Random.Range (0.0f,1.0f);
 
-		int mutatedCount = 0;
-		if (!_mutated && grid.GetNeighbors(hexPoint, (CellScript n) => n != null && n._mutated).Count() == 6) {
-		
-			Destroy (this.gameObject);
-
-		}
-
-		if (_deathChance > rng) {
-
-			// do a death animation and Destroy at the end
-			Destroy (this.gameObject);
-		}
+		Destroy (this.gameObject);
 
 		return false;
+
 	}
 
 	void Divide () {
@@ -159,6 +145,12 @@ public class CellScript : MonoBehaviour {
 
 	bool IsEmpty (FlatHexPoint point) {
 		return grid[point] == null;
+	}
+
+	IEnumerator StartCoroutineDie () {
+		yield return new WaitForSeconds (Random.Range (0, _deathDelayInSeconds * 2f));
+		Die ();
+
 	}
 
 }
