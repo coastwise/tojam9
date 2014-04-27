@@ -5,8 +5,6 @@ using Gamelogic.Grids;
 
 public class ShapeTool : Treatment {
 
-	public PlayArea area;
-
 	public Material hilight;
 
 	PolygonCollider2D polygon;
