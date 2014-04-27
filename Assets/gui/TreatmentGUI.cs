@@ -59,7 +59,7 @@ public class TreatmentGUI : MonoBehaviour {
 		resection.gameObject.SetActive(false);
 		radical.gameObject.SetActive(false);
 		laparoscopic.gameObject.SetActive(false);
-		//laser.gameObject.SetActive(false);
+		laser.gameObject.SetActive(false);
 		surgery.gameObject.SetActive(true);
 	}
 

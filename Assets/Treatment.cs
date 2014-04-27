@@ -13,11 +13,19 @@ public enum TreatmentType {
 
 public class Treatment : MonoBehaviour {
 
-
-
 	public float cooldown;
 
 	public TreatmentType type;
+
+	private PlayArea _area;
+	protected PlayArea area {
+		get {
+			if (_area == null) {
+				_area = GameObject.FindObjectOfType<PlayArea>();
+			}
+			return _area;
+		}
+	}
 
 	virtual public void Use () {
 		TreatmentGUI.AddCooldown(type, cooldown);

@@ -29,8 +29,28 @@ public class CellScript : MonoBehaviour {
 
 	public bool animating = false;
 	public Vector3 animationTarget;
-	
+
+	public Animator anim;
+
+	public float timeSinceMutation;
+	public float animTime = 1.0f;
+	public bool cancer;
+
+	void Start(){
+		anim = this.GetComponent<Animator>();
+		StartCoroutine (StartCoroutineDie());
+	}
+
 	void Update () {
+
+		if(gameObject.tag == "healthy" && _mutated){
+			if(Time.time - timeSinceMutation >= animTime){
+				//anim.SetBool("cancer", true);
+				anim.runtimeAnimatorController = area.cancerCellPrefab.gameObject.GetComponent<Animator>().runtimeAnimatorController;
+				gameObject.tag = "cancer";
+			}
+		}
+
 		if (!animating) return;
 		iTween.MoveUpdate(gameObject, iTween.Hash("position", animationTarget,
 		                                          "islocal", true,
@@ -39,37 +59,22 @@ public class CellScript : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+
 		_divideChance = 1 / (_divideDelayInSeconds * (1 / Time.fixedDeltaTime));
-		_deathChance = 1 / (_deathDelayInSeconds * (1 / Time.fixedDeltaTime));
+		//_deathChance = 1 / _deathDelayInSeconds;
 		if (!_mutated) _mutateChance = (_mutationFactor * Time.fixedDeltaTime) / 100;
-
-		if (Die ()) {
-			return;
-		}
-
-
+		
 		Divide ();
 
-		//Mutate ();
+		Mutate ();
 	}
 
 	bool Die () {
-		float rng = Random.Range (0.0f,1.0f);
 
-		int mutatedCount = 0;
-		if (!_mutated && grid.GetNeighbors(hexPoint, (CellScript n) => n != null && n._mutated).Count() == 6) {
-		
-			Destroy (this.gameObject);
-
-		}
-
-		if (_deathChance > rng) {
-
-			// do a death animation and Destroy at the end
-			Destroy (this.gameObject);
-		}
+		Destroy (this.gameObject);
 
 		return false;
+
 	}
 
 	void Divide () {
@@ -87,7 +92,8 @@ public class CellScript : MonoBehaviour {
 				}
 			}
 
-			if (grid.GetNeighbors(hexPoint, (CellScript n) => n._mutated).Count() == 6) {
+			if (grid.GetNeighbors(hexPoint, (CellScript n) => n._mutated).Count() == 
+			    grid.GetNeighbors(hexPoint, (CellScript n) => n != null).Count()) {
 				// don't split, totally surrounded by cancer.
 				return;
 			}
@@ -110,16 +116,23 @@ public class CellScript : MonoBehaviour {
 		if (_mutateChance > rng) {
 			// become cancer cell
 
-			_divideDelayInSeconds /= 20;
-			_deathDelayInSeconds *= 20;
+			_divideDelayInSeconds /= 4;
+			_deathDelayInSeconds *= 4;
 
 			_mutateChance = 0;
 			_mutated = true;
 
 			onlyDivideIntoEmptyNeighbour = false;
 
-			Material newMat = Resources.Load ("CancerCellMaterial", typeof(Material)) as Material;
-			gameObject.renderer.material = newMat;
+			//Material newMat = Resources.Load ("CancerCellMaterial", typeof(Material)) as Material;
+			//gameObject.renderer.material = newMat;
+
+			anim.SetBool("mutate", true);
+			timeSinceMutation = Time.time;
+			Debug.Log("timesincemutation: " + timeSinceMutation);
+
+			GetComponent<SpriteRenderer>().sortingLayerName = "cancer";
+			GetComponent<SpriteRenderer>().sortingOrder = 1;
 
 			Debug.Log ("Mutated!");
 		}
@@ -132,6 +145,12 @@ public class CellScript : MonoBehaviour {
 
 	bool IsEmpty (FlatHexPoint point) {
 		return grid[point] == null;
+	}
+
+	IEnumerator StartCoroutineDie () {
+		yield return new WaitForSeconds (Random.Range (0, _deathDelayInSeconds * 2f));
+		Die ();
+
 	}
 
 }
