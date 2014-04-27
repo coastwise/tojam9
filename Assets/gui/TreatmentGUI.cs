@@ -4,9 +4,17 @@ using System.Collections;
 public class TreatmentGUI : MonoBehaviour {
 	
 	private int openedButton = 0;		// 0 for no buttons
+
+	private int cooldownTest = 500;
+	private int cooldownMax = 500;
 	
 	void OnGUI () {
-		
+
+		cooldownTest--;
+		if (cooldownTest < 1) {
+			cooldownTest = cooldownMax;
+		}
+
 		var numButtons = 6;
 		
 		var buttonPad = Screen.width / 100;
@@ -17,9 +25,12 @@ public class TreatmentGUI : MonoBehaviour {
 		var popWidth = Screen.width / 1.6;
 		var popButtonWidth = ((popWidth - buttonPad) / 4) - buttonPad;
 		
-		
+		Event e = Event.current;
+
 		var iBut = 0;
 		var jBut = 0;
+
+		var openTab = new Rect(0, 0, 0, 0);
 		
 		// Make a background box
 		GUI.Box(new Rect(buttonPad, buttonPad, buttonWidth + buttonPad + buttonPad, Screen.height - buttonPad - buttonPad), "");
@@ -27,9 +38,9 @@ public class TreatmentGUI : MonoBehaviour {
 
 
 
-		
+
 		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
-		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), new GUIContent("Surgery", "Kills selected cells dead whether they're cancer or not"))) {
+		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Surgery")) {
 			if(openedButton == iBut + 1)
 			{
 				openedButton = 0;
@@ -40,14 +51,16 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 		}
 
-		GUI.Label (new Rect (10,40,100,20), GUI.tooltip);
+		GUI.Box(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)((buttonWidth * cooldownTest) / cooldownMax), (float)buttonHeight), "");
 		
 		if (openedButton == iBut + 1) {
 			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
-			
+			openTab = new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight);
+
 			jBut = 0;
+
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Resection")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Resection", "The earliest recorded surgery to remove a tumour was performed in ancient Egypt, more than 4,000 years ago.\n"))) {
 				// a cancel button appears where the original button was
 				// mouse highlights a medium sized hexagon region until the player clicks
 				// 		if the player cancels, nothing happens
@@ -58,7 +71,7 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 			jBut++;
 
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Radical Resection")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Radical Resection", "Radical surgery was pioneered by William Stewart Halsted.  In 1882, he performed the first radical mastectomy, in which a breast cancer tumour was treated by removing the entire breast, underlying muscles and nearby lymph nodes.  This aggressive, disfiguring surgery was the standard treatment for breast cancer until the 1970s.\n"))) {
 				// a cancel button appears where the original button was
 				// mouse highlights a large sized hexagon region until the player clicks
 				// 		if the player cancels, nothing happens
@@ -68,7 +81,7 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 			jBut++;
 
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Laparoscopic Resection\t")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Laparoscopic Resection", "Minimally invasive laparoscopic surgeries to resect portions of the colon have recently become popular due to lower risks and decreased recovery time.\n"))) {
 				// a cancel button appears where the original button was
 				// mouse highlights a small sized hexagon region until the player clicks
 				// 		if the player cancels, nothing happens
@@ -78,7 +91,7 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 			jBut++;
 
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Laser Ablation")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Laser Ablation", "Focal laser ablation is currently in clinical trials as a way to directly target and destroy tumour tissue in prostate cancers.\n"))) {
 				// a cancel button appears where the original button was
 				// first mouse click anchors a line and then moving the mouse changes the direction of the line
 				// 		if the player cancels, nothing happens
@@ -87,6 +100,10 @@ public class TreatmentGUI : MonoBehaviour {
 				//			draw laser effect, play laser sound (pew pew)
 			}
 			jBut++;
+
+			GUI.Label (new Rect ((float)(buttonWidth + buttonPad * 5), (float)((iBut * (buttonHeight + buttonPad)) + buttonHeight) - 10, (float)popWidth, 40), GUI.tooltip);
+
+
 		}
 		iBut++;
 
@@ -108,10 +125,12 @@ public class TreatmentGUI : MonoBehaviour {
 		
 		if (openedButton == iBut + 1) {
 			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
-			
+
+			openTab = new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight);
+
 			jBut = 0;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "X-Ray Radiotherapy")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("X-Ray Radiotherapy", "X-Rays were discovered by Wilhelm Röntgen in 1895.  Emil Grubbe started treating cancer patients with x-rays just one year later.  Marie Curie discovered two new radioactive elements (polonium and radium) in 1898 which kicked off a new era in medical treatment and research.\n"))) {
 				// a cancel button appears where the original button was
 				// the entire grid is highlighted
 				// 		if the player cancels, nothing happens
@@ -123,7 +142,7 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Brachytherapy")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Brachytherapy", "Brachytherapy, the process of inserting radioactive seeds directly into a tumour, was first attempted in 1901.  Iridium pellets, the most common brachytherapy radiation source used to treat many different cancer types today, were first employed in 1958.\n"))) {
 				// a cancel button appears where the original button was
 				// a medium sized region around the mouse is highlighter
 				// 		if the player cancels, nothing happens
@@ -136,7 +155,7 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Gamma Knife")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Gamma Knife", "The Gamma Knife administers high-intensity cobalt radiation in short bursts at many different angles centered on the tumour, such that the cancer receives a lethal dose but the surrounding tissue is spared.  It was invented in Sweden in 1967.\n"))) {
 				// a cancel button appears where the original button was
 				// a small region around the mouse is highlighted
 				// 		if the player cancels, nothing happens
@@ -148,7 +167,7 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Proton Radiotherapy")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Proton Radiotherapy", "Higher energy particles deliver higher doses of radiation with increased precision, and are often used to treat cancers such as ocular and skull base tumours.\n"))) {
 				// a cancel button appears where the original button was
 				// the first click anchors the beam on a cell, and then moving the mouse changes the orientation of the beam, which is 3 or 5 hexs wide and goes across the whole grid
 				// 		if the player cancels, nothing happens
@@ -159,6 +178,8 @@ public class TreatmentGUI : MonoBehaviour {
 				//			draw radiation effect, play radiation sound
 			}
 			jBut++;
+
+			GUI.Label (new Rect ((float)(buttonWidth + buttonPad * 5), (float)((iBut * (buttonHeight + buttonPad)) + buttonHeight) - 10, (float)popWidth, 40), GUI.tooltip);
 		}
 		iBut++;
 
@@ -179,10 +200,12 @@ public class TreatmentGUI : MonoBehaviour {
 		
 		if (openedButton == iBut + 1) {
 			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
-			
+
+			openTab = new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight);
+
 			jBut = 0;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Chloromethine")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Chloromethine", "Chlormethine, also known as mustine, is a derivative of mustard gas that was tested on humans with lymphoma and leukemia in 1942 after doctors noticed very low white blood cell counts in mustard gas attack survivors.\n"))) {
 				// a cancel button appears where the original button was
 				// the entire grid is highlighted
 				// 		if the player cancels, nothing happens
@@ -193,7 +216,7 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Methotrexate")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Methotrexate", "Sidney Farber’s work in the middle of the 20th century treating children suffering from leukemia with antifolates such as aminopterin and methotrexate was instrumental in proving that drugs can cause remission in cancer.  He went on to become a prominent advocate for cancer research, raising millions of dollars in donations and government funding.\n"))) {
 				// a cancel button appears where the original button was
 				// the entire grid is highlighted
 				// 		if the player cancels, nothing happens
@@ -206,7 +229,7 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Doxorubicin")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Doxorubicin", "In 1950, Italian and French researchers isolated daunorubicin from a red coloured bacteria that lived in the soil around a 13th century castle.  In 1967 researchers learned that daunorubicin could cause fatal cardiac toxicity.  Doxorubicin is a more effective derivative.\n"))) {
 				// a cancel button appears where the original button was
 				// the entire grid is highlighted
 				// 		if the player cancels, nothing happens
@@ -219,7 +242,7 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Cisplatin")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Cisplatin", "Cisplatin was found to interfere with E.Coli cell division in 1965 at Michigan Statue University, and 4 years later it was shown to reduce the size of tumours in rats.  It was approved for use in human cancers in 1978.\n"))) {
 				// a cancel button appears where the original button was
 				// the entire grid is highlighted
 				// 		if the player cancels, nothing happens
@@ -231,9 +254,16 @@ public class TreatmentGUI : MonoBehaviour {
 				//			draw chemo effect, play chemo sound
 			}
 			jBut++;
+
+			GUI.Label (new Rect ((float)(buttonWidth + buttonPad * 5), (float)((iBut * (buttonHeight + buttonPad)) + buttonHeight) - 10, (float)popWidth, 40), GUI.tooltip);
 		}
 		iBut++;
-		
+
+
+
+
+
+
 		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Genetics")) {
 			if(openedButton == iBut + 1)
 			{
@@ -248,27 +278,36 @@ public class TreatmentGUI : MonoBehaviour {
 		
 		if (openedButton == iBut + 1) {
 			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
-			
+
+			openTab = new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight);
+
 			jBut = 0;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Sanger Sequencing")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Sanger Sequencing"))) {
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Exome Sequencing")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Exome Sequencing"))) {
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Whole Genome Sequencing")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Whole Genome Sequencing"))) {
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Single Cell Sequencing")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Single Cell Sequencing"))) {
 			}
 			jBut++;
+
+			GUI.Label (new Rect ((float)(buttonWidth + buttonPad * 5), (float)((iBut * (buttonHeight + buttonPad)) + buttonHeight) - 10, (float)popWidth, 40), GUI.tooltip);
 		}
 		iBut++;
-		
+
+
+
+
+
+
 		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Targeted Drugs")) {
 			if(openedButton == iBut + 1)
 			{
@@ -283,27 +322,37 @@ public class TreatmentGUI : MonoBehaviour {
 		
 		if (openedButton == iBut + 1) {
 			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
-			
+
+			openTab = new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight);
+
 			jBut = 0;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Trastuzumab")) {
+				if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Trastuzumab"))) {
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Imatinib")) {
+				if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Imatinib"))) {
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Vemurafenib")) {
+				if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Vemurafenib"))) {
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "???")) {
+			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Crizotinib"))) {
 			}
 			jBut++;
+
+			GUI.Label (new Rect ((float)(buttonWidth + buttonPad * 5), (float)((iBut * (buttonHeight + buttonPad)) + buttonHeight) - 10, (float)popWidth, 40), GUI.tooltip);
 		}
 		iBut++;
-		
+
+
+
+
+
+
+
 		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Future Tech")) {
 			if(openedButton == iBut + 1)
 			{
@@ -318,29 +367,41 @@ public class TreatmentGUI : MonoBehaviour {
 		
 		if (openedButton == iBut + 1) {
 			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
-			
+
+			openTab = new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight);
+
 			jBut = 0;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Immunotherapy")) {
+					if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Immunotherapy"))) {
 				// cancer death rate goes up
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Oncolytic Virus")) {
-				// cancer death rate goes up
+					if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Oncolytic Virus"))) {
+				// cancer death greatly increases
+				// normal death rate slightly increases
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Nanoparticles")) {
+					if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Nanoparticles"))) {
 				// cancer division rate greatly reduced
 			}
 			jBut++;
 			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*2)), "Goat on a Stick")) {
+					if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Goat on a Stick", "No explanation necessary.\n"))) {
 				// dumb spammy click a cell to kill it
 			}
 			jBut++;
+
+			GUI.Label (new Rect ((float)(buttonWidth + buttonPad * 5), (float)((iBut * (buttonHeight + buttonPad)) + buttonHeight) - 10, (float)popWidth, 40), GUI.tooltip);
 		}
 		iBut++;
+
+
+		// check for clicks outside the GUI and close any open tab
+		if (e.type == EventType.MouseDown && !openTab.Contains(e.mousePosition))
+		{
+			openedButton = 0;
+		}
 	}
 }
