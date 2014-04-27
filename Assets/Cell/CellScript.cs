@@ -3,22 +3,29 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using Gamelogic.Grids;
+using System;
 
-using System.Linq;
 
 public class CellScript : MonoBehaviour {
 
+	public enum CellProperty
+		{
+			Divide = 0,
+			Death,
+			Mutate
+		}
+
 	public float _divideDelayInSeconds = 200;
 	float _divideChance;
-	float _calcDivide;
+	public float _calcDivide;
 
 	public float _deathDelayInSeconds = 200;
 	float _deathChance;
-	float _calcDeath;
+	public float _calcDeath;
 
 	public float _mutationFactor = 0;
 	public float _mutateChance;
-	float clacMutate;
+	public float calcMutate;
 
 	public bool onlyDivideIntoEmptyNeighbour = true;
 
@@ -37,29 +44,33 @@ public class CellScript : MonoBehaviour {
 
 	public float timeSinceMutation;
 	public float animTime = 1.0f;
-	public bool cancer;
 
 	public static int healthyCount = 0;
 	public static int cancerCount = 0;
 
-	public float chemoBuff = 1;
-	public float radiationBuff = 1;
+	public static float chemoCancerDivide = 1;
+	public static float chemoCancerDeath = 1;
+	public static float chemoCancerMutate = 1;
+	public static float chemoHealthyDivide = 1;
+	public static float chemoHealthyDeath = 1;
+	public static float chemoHealthyMutate = 1;
 
-	public IEnumerator ApplyChemo(float buff, float duration) {
-		chemoBuff += buff;
-		yield return new WaitForSeconds (duration);
-		chemoBuff -= buff;
-	}
-	
-	public IEnumerator ApplyRadiation(float buff, float duration) {
-		radiationBuff += buff;
-		yield return new WaitForSeconds (duration);
-		radiationBuff -= buff;
-	}
+	public float radiationDivideBuff = 1;
+	public float radiationDeathBuff = 1;
+	public float radiationMutateBuff = 1;
+
+	public float dividerng;
+
+	Action CellUpdate;
 
 	void Start(){
+		
+		if (_mutated) {
+			CellUpdate = Cancer;
+		} else
+			CellUpdate = Healthy;
+
 		anim = this.GetComponent<Animator>();
-		StartCoroutine (StartCoroutineDie());
 	}
 
 	void OnEnable () {
@@ -68,6 +79,8 @@ public class CellScript : MonoBehaviour {
 		} else {
 			healthyCount++;
 		}
+		
+		StartCoroutine (StartCoroutineDie());
 	}
 
 	void OnDisable () {
@@ -79,6 +92,12 @@ public class CellScript : MonoBehaviour {
 	}
 
 	void Update () {
+		
+		if (_mutated) {
+			CellUpdate = Cancer;
+		} else
+			CellUpdate = Healthy;
+
 
 		if(gameObject.tag == "healthy" && _mutated){
 			if(Time.time - timeSinceMutation >= animTime){
@@ -96,28 +115,61 @@ public class CellScript : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-
-		_divideChance = 1 / (_divideDelayInSeconds * (1 / Time.fixedDeltaTime));
-		//_deathChance = 1 / _deathDelayInSeconds;
-		if (!_mutated) _mutateChance = (_mutationFactor * Time.fixedDeltaTime) / 100;
 		
-		Divide ();
+		_divideChance = 1 / (_divideDelayInSeconds * (1 / Time.fixedDeltaTime));
+		_deathChance = 1 / (_deathDelayInSeconds * (1 / Time.fixedDeltaTime));
+		_mutateChance = (_mutationFactor * Time.fixedDeltaTime) / 100;
 
+		CellUpdate();
+
+		DieByAge ();
+		Divide ();
 		Mutate ();
 	}
+
+	void Healthy () {
+
+		_calcDivide = _divideChance * chemoHealthyDivide * radiationDivideBuff;
+		_calcDeath = _deathChance * chemoHealthyDeath * radiationDeathBuff;
+		
+		if (!_mutated) {
+			calcMutate = _mutateChance * chemoHealthyMutate * radiationMutateBuff;
+		}
+	}
+
+	void Cancer () {
+		_calcDivide = _divideChance * chemoCancerDivide * radiationDivideBuff;
+		_calcDeath = _deathChance * chemoCancerDeath * radiationDeathBuff;
+		
+		if (!_mutated) {
+			calcMutate = _mutateChance * chemoCancerMutate * radiationMutateBuff;
+		}
+	}
+
 
 	bool Die () {
 
 		Destroy (this.gameObject);
-
 		return false;
+	}
 
+
+	void DieByAge () {
+		float rng = UnityEngine.Random.Range(0.0f,1.0f);
+
+		dividerng = rng;
+
+		if (_calcDeath > rng) {
+			Die ();
+		}
 	}
 
 	void Divide () {
-		float rng = Random.Range (0.0f,1.0f);
-		
-		if (_divideChance > rng) {
+		float rng = UnityEngine.Random.Range (0.0f,1.0f);
+
+
+
+		if (_calcDivide > rng) {
 
 
 			foreach (FlatHexPoint direction in grid.GetNeighborDirections()) {
@@ -141,20 +193,20 @@ public class CellScript : MonoBehaviour {
 				FlatHexPoint[] directions = grid.GetNeighborDirections()
 					.Where(d => grid.Contains(hexPoint + d))
 					.ToArray();
-				FlatHexPoint dir = directions[Random.Range(0, directions.Length)];
+				FlatHexPoint dir = directions[UnityEngine.Random.Range(0, directions.Length)];
 				area.SpawnCell(this, hexPoint + dir, dir);
 			}
 		}
 	}
 
 	void Mutate () {
-		float rng = Random.Range (0.0f,1.0f);
+		float rng = UnityEngine.Random.Range (0.0f,1.0f);
 
-		if (!_mutated && _mutateChance > rng) {
+		if (!_mutated && calcMutate > rng) {
 			// become cancer cell
 
-			_divideDelayInSeconds /= 4;
-			_deathDelayInSeconds *= 4;
+			_divideDelayInSeconds /= 2;
+			_deathDelayInSeconds *= 2;
 
 			_mutateChance = 0;
 			_mutated = true;
@@ -186,9 +238,16 @@ public class CellScript : MonoBehaviour {
 	}
 
 	IEnumerator StartCoroutineDie () {
-		yield return new WaitForSeconds (Random.Range (0, _deathDelayInSeconds * 2f));
-		Die ();
+		while (true) {
+				// check if surrounded by cancer
+			yield return new WaitForSeconds (0.5f);
 
+			if (!_mutated && grid != null && 
+					grid.GetNeighbors (hexPoint, (CellScript n) => n != null && n._mutated).Count () == 
+					grid.GetNeighbors (hexPoint, (CellScript n) => n != null).Count ()) {
+					Die ();
+			}
+		}
 	}
 
 }

@@ -27,6 +27,7 @@ public class PlayArea : GLMonoBehaviour {
 	}
 
 	public void FixedUpdate () {
+		Time.timeScale = 5;
 		emptyCount = gridCount - CellScript.healthyCount - CellScript.cancerCount;
 	}
 

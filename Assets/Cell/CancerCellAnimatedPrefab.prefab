@@ -54,20 +54,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b4361a02c195047a59cb347809b843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _divideDelayInSeconds: 25
-  _deathDelayInSeconds: 400
+  _divideDelayInSeconds: 50
+  _calcDivide: 0
+  _deathDelayInSeconds: 200
+  _calcDeath: 0
   _mutationFactor: 0
   _mutateChance: 1
+  calcMutate: 0
   onlyDivideIntoEmptyNeighbour: 0
+  _mutated: 1
   area: {fileID: 0}
   animating: 0
   animationTarget: {x: 0, y: 0, z: 0}
   anim: {fileID: 0}
   timeSinceMutation: 0
   animTime: 1
-  cancer: 0
-  chemoBuff: 1
-  radiationBuff: 1
+  radiationDivideBuff: 1
+  radiationDeathBuff: 1
+  radiationMutateBuff: 1
+  dividerng: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

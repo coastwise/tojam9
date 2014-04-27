@@ -9,31 +9,38 @@ public class ChemoTool : Treatment {
 
 	void Update() {
 		if (Input.GetMouseButtonDown (0) && !iskillingstuff) {
-						//Use ();
-						Debug.Log ("Something!!!");
+				//Use ();
+				Debug.Log ("Something!!!");
 
 
-						TreatmentGUI.AddCooldown (type, cooldown + duration);
+				TreatmentGUI.AddCooldown (type, cooldown + duration);
 
-						iskillingstuff = true;
+				iskillingstuff = true;
 
-			GetComponent<SpriteRenderer>().enabled = true;
+				GetComponent<SpriteRenderer>().enabled = true;
 
-						StartCoroutine (Chemo ());
-				}
+				StartCoroutine (ApplyChemo ());
 
-		if (iskillingstuff) {
+				
+		}
 
-				}
 
 	}
 
-	IEnumerator Chemo() {
-		yield return new WaitForSeconds(duration);
+	
+	IEnumerator ApplyChemo() {
+
+		CellScript.chemoHealthyDeath += 2.0f;
+		CellScript.chemoCancerDeath += 16.0f;
+
+		yield return new WaitForSeconds (duration);
+		CellScript.chemoHealthyDeath -= 2.0f;
+		CellScript.chemoCancerDeath -= 16.0f;
 		
 		GetComponent<SpriteRenderer> ().enabled = false;
 		iskillingstuff = false;
 		gameObject.SetActive (false);
 	}
+
 
 }
