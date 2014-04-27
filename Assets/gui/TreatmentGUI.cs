@@ -10,6 +10,18 @@ public class TreatmentGUI : MonoBehaviour {
 	public Treatment laser;
 	public Treatment Chloromethine;
 
+	public Texture2D surgeryButton;
+	public Texture2D radioButton;
+	public Texture2D chemoButton;
+	public Texture2D futureButton;
+	public Texture2D goatButton;
+	public Texture2D buttonImage;
+
+
+	public Texture2D normalDefault = GUI.skin.button.normal.background;
+	public Texture2D hoverDefault = GUI.skin.button.hover.background;
+	public Texture2D activeDefault = GUI.skin.button.active.background;
+
 	public GUISkin cooldownBarSkin;
 
 	public AudioClip clickSound;
@@ -93,7 +105,11 @@ public class TreatmentGUI : MonoBehaviour {
 
 
 		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
-		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Surgery")) {
+		buttonImage = surgeryButton;
+	//	GUI.skin.button.normal.background = buttonImage;
+	//	GUI.skin.button.hover.background = buttonImage;
+	//	GUI.skin.button.active.background = buttonImage;
+		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), buttonImage)) {
 			AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 
 
@@ -178,7 +194,11 @@ public class TreatmentGUI : MonoBehaviour {
 
 
 		// Make the second button.
-		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Radiation")) {
+		buttonImage = radioButton;
+	//	GUI.skin.button.normal.background = buttonImage;
+	//	GUI.skin.button.hover.background = buttonImage;
+	//	GUI.skin.button.active.background = buttonImage;
+		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), buttonImage)) {
 			AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 			if(openedButton == iBut + 1)
 			{
@@ -258,7 +278,11 @@ public class TreatmentGUI : MonoBehaviour {
 
 
 
-		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Chemotherapy")) {
+		buttonImage = chemoButton;
+	//	GUI.skin.button.normal.background = buttonImage;
+	//	GUI.skin.button.hover.background = buttonImage;
+	//	GUI.skin.button.active.background = buttonImage;
+		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), buttonImage)) {
 			AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 			if(openedButton == iBut + 1)
 			{
@@ -431,8 +455,8 @@ public class TreatmentGUI : MonoBehaviour {
 
 
 
-	
-		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Future Tech")) {
+		buttonImage = futureButton;
+		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), futureButton)) {
 			AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 			if(openedButton == iBut + 1)
 			{
@@ -472,7 +496,7 @@ public class TreatmentGUI : MonoBehaviour {
 			}
 			jBut++;
 			
-					if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Goat on a Stick", "No explanation necessary.\n"))) {
+					if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent(goatButton, "No explanation necessary.\n"))) {
 				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// dumb spammy click a cell to kill it goat lol
 			}

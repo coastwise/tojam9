@@ -8,6 +8,21 @@ public class HealthBarScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		area = FindObjectOfType<PlayArea>();
+
+		StartCoroutine (WaitThenEnableTreatments ());
+	}
+
+	IEnumerator WaitThenEnableTreatments() {
+		gui = GameObject.FindObjectOfType<TreatmentGUI> ();
+		gui.gameObject.SetActive (false);
+		Time.timeScale = 10;
+		while (CellScript.cancerCount < minCancerToStart)
+			yield return null;
+		Time.timeScale = 1;
+		gui.gameObject.SetActive (true);
+		started = true;
+		justStarted = true;
+		detectedMessageTime = Time.realtimeSinceStartup;
 	}
 	
 	// Update is called once per frame
@@ -16,9 +31,9 @@ public class HealthBarScript : MonoBehaviour {
 	}
 
 
-	private int minHealthy = 500;
-	private int dangerZone = 500;
-	private int minCancerToStart = 20;
+	private int minHealthy = 1000;
+	private int dangerZone = 1000;
+	private int minCancerToStart = 60;
 
 	private float lastBlink = 0;
 	private bool blinking = false;
@@ -35,14 +50,21 @@ public class HealthBarScript : MonoBehaviour {
 	private Color healthyColor = new Color ((249 / (float)255), (172 / (float)255), (138 / (float)255), (float)0.8);
 	private Color blinkColor = new Color ((255 / (float)255), (0 / (float)255), (0 / (float)255), (float)0.4);
 
+	private Color defaultColor = GUI.color;
+	private GUISkin defaultSkin = GUI.skin;
+
+	private TreatmentGUI gui;
 
 	public AudioClip healthyMusic;
 	public AudioClip cancerMusic;
 
 	private bool healthyMusicPlaying = true;
 
-	void OnGUI () {
+	private bool started = false;
+	private bool justStarted = false;
+	private float detectedMessageTime = 0;
 
+	void OnGUI () {
 
 
 		var barWidth = Screen.width / 10;
@@ -62,6 +84,24 @@ public class HealthBarScript : MonoBehaviour {
 		if (healthyHeight < 0) {
 			healthyHeight = 0;
 		}
+
+
+		if (!started) {
+			GUI.Box (new Rect((float)(Screen.width / 2) - 100, (float)(Screen.height / 2) - 20, 200, 40), "10x Time Lapse\nWaiting...");
+		}
+
+
+
+		if (justStarted)
+		{
+			GUI.Box (new Rect((float)(Screen.width / 2) - 100, (float)(Screen.height / 2) - 20, 200, 40), "Cancer Detected!\nBegin Treatment!");
+		}
+
+		if (detectedMessageTime + 5 < Time.realtimeSinceStartup) {
+			justStarted = false;
+		}
+
+
 
 		GUI.skin = emptyBarSkin;
 		GUI.Box (new Rect (Screen.width - barWidth, (float)(Screen.height - barHeight + (barPad * 0)), barWidth - barPad * 2, emptyHeight), "");
@@ -125,10 +165,23 @@ public class HealthBarScript : MonoBehaviour {
 		// check for chemo'd or radiation'd
 		// make bar green or radioative logo
 
+
+		Event e = Event.current;
+
+
+
 		if (CellScript.healthyCount - minHealthy < 1) {
 			// game over
-			print("Game Over!");
 
+			gui.gameObject.SetActive (false);
+
+			GUI.skin = defaultSkin;
+			GUI.Box (new Rect((float)(Screen.width / 2) - 100, (float)(Screen.height / 2) - 20, 200, 40), "The patient has died.\nClick to try again.");
+
+			if (e.type == EventType.MouseDown)
+			{
+				Application.LoadLevel(1);
+			}
 		}
 
 
