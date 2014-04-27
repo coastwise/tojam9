@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: f2d830f4f89a948df8b1bc8e2929adff
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - splashScreenSkin: {fileID: 11400000, guid: c2c96adf4e61d4af092e1365fd47683e, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
