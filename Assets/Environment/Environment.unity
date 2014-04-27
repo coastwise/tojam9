@@ -117,6 +117,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 3ace4fd51089c49f08b29ddf4c19bed7, type: 2}
+      propertyPath: cooldown
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3ace4fd51089c49f08b29ddf4c19bed7, type: 2}
   m_RootGameObject: {fileID: 1225040875}
@@ -270,6 +274,10 @@ Prefab:
     - target: {fileID: 100000, guid: 37f9610d755194b84bebd685a5e2a93f, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 37f9610d755194b84bebd685a5e2a93f, type: 2}
+      propertyPath: cooldown
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37f9610d755194b84bebd685a5e2a93f, type: 2}
@@ -545,6 +553,15 @@ MonoBehaviour:
   laparoscopic: {fileID: 1784380682}
   laser: {fileID: 1996545029}
   Chloromethine: {fileID: 0}
+  surgeryButton: {fileID: 2800000, guid: c504b6eafe1224dbd96e8b30e5eef195, type: 3}
+  radioButton: {fileID: 2800000, guid: f3b8db9068582411990d9428ac084b60, type: 3}
+  chemoButton: {fileID: 2800000, guid: a6e3de746bdb94f88946289541d99b4b, type: 3}
+  futureButton: {fileID: 2800000, guid: 28b2b4a4da5cf4c8184d77c56853b2a8, type: 3}
+  goatButton: {fileID: 2800000, guid: d19e15342919d4a5eb6440dd19c41b04, type: 3}
+  buttonImage: {fileID: 0}
+  normalDefault: {fileID: 0}
+  hoverDefault: {fileID: 0}
+  activeDefault: {fileID: 0}
   cooldownBarSkin: {fileID: 11400000, guid: ab8b019bc501146f39aac577fd5afb91, type: 2}
   clickSound: {fileID: 8300000, guid: f1e23e20ebd8b4e7b9401f2efcac1f9e, type: 3}
 --- !u!4 &1092072612
@@ -704,7 +721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6cb55601a31643e8a61dac94fc99b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 10
+  cooldown: 5
   type: 0
   hilight: {fileID: 2100000, guid: a56c81b2cfe384696b3c2b8ae2f460e0, type: 2}
 --- !u!60 &1225040878
@@ -809,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6cb55601a31643e8a61dac94fc99b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 20
+  cooldown: 10
   type: 0
   hilight: {fileID: 2100000, guid: a56c81b2cfe384696b3c2b8ae2f460e0, type: 2}
 --- !u!4 &1581932631
