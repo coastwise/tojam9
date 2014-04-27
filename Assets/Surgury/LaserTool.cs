@@ -11,6 +11,8 @@ public class LaserTool : Treatment {
 	public Vector3 startPoint;
 	public Vector3 endPoint;
 
+	public float length = 10;
+
 	public GameObject effect;
 
 	protected LineRenderer lineRenderer;
@@ -32,7 +34,15 @@ public class LaserTool : Treatment {
 				startPositionSet = true;
 			}
 		} else {
-			endPoint = ExampleUtils.ScreenToWorld(area.root, Input.mousePosition);
+			Vector3 mouse = ExampleUtils.ScreenToWorld(area.root, Input.mousePosition);
+
+			// fixed length lazor beam
+			Vector3 delta = mouse - startPoint;
+			delta = new Vector3(delta.x, delta.y, 0);
+			delta.Normalize();
+			delta = delta * length;
+			endPoint = startPoint + delta;
+
 			endPoint = new Vector3(endPoint.x, endPoint.y, -1);
 
 			lineRenderer.SetPosition(1, endPoint);
