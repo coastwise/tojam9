@@ -332,7 +332,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 21.2700005
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -348,7 +348,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 365895451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -.232357025, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -911,6 +911,7 @@ MonoBehaviour:
   startPositionSet: 0
   startPoint: {x: 0, y: 0, z: 0}
   endPoint: {x: 0, y: 0, z: 0}
+  aBitLeft: {x: 0, y: 0, z: 0}
   length: 10
   effect: {fileID: 2120506448}
 --- !u!120 &1996545030
@@ -990,7 +991,9 @@ MonoBehaviour:
   healthyCellPrefab: {fileID: 11400000, guid: 0b9f3ada8781c744ab8b892ab496c92b, type: 2}
   cancerCellPrefab: {fileID: 11400000, guid: 93f70df4ddc5c2748abe3e39b505c3a0, type: 2}
   root: {fileID: 2042093467}
-  gridSize: {x: 80, y: 40}
+  gridSize: {x: 69, y: 40}
+  healthyCount: 0
+  cancerCount: 0
   emptyCount: 0
   gridCount: 0
 --- !u!4 &2042093469
@@ -1000,7 +1003,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2042093467}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .257440358, y: -.544302821, z: 0}
+  m_LocalPosition: {x: 1.14999998, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
