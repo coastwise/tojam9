@@ -281,7 +281,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .284169555, g: .342560589, b: .529411793, a: .0196078438}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -292,7 +292,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 11.85989
+  orthographic size: 20
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -490,7 +490,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 10
   type: 0
-  area: {fileID: 2042093468}
   hilight: {fileID: 2100000, guid: a56c81b2cfe384696b3c2b8ae2f460e0, type: 2}
 --- !u!60 &1225040878
 PolygonCollider2D:
@@ -595,7 +594,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 20
   type: 0
-  area: {fileID: 2042093468}
   hilight: {fileID: 2100000, guid: a56c81b2cfe384696b3c2b8ae2f460e0, type: 2}
 --- !u!4 &1581932631
 Transform:
@@ -650,7 +648,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 2
   type: 0
-  area: {fileID: 2042093468}
   hilight: {fileID: 2100000, guid: a56c81b2cfe384696b3c2b8ae2f460e0, type: 2}
 --- !u!60 &1784380683
 PolygonCollider2D:
@@ -677,7 +674,7 @@ GameObject:
   - 4: {fileID: 2042093469}
   - 114: {fileID: 2042093468}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: PlayArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -694,10 +691,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d4dea7a7a4448e0ae4396b8a8fab05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthyCellPrefab: {fileID: 11400000, guid: dfbaf6ee0a2e94e598cbe024cee7e703, type: 2}
-  cancerCellPrefab: {fileID: 11400000, guid: aa652036a9fc64deb85d3fdb8d0b477c, type: 2}
+  healthyCellPrefab: {fileID: 11400000, guid: 0b9f3ada8781c744ab8b892ab496c92b, type: 2}
+  cancerCellPrefab: {fileID: 11400000, guid: 93f70df4ddc5c2748abe3e39b505c3a0, type: 2}
   root: {fileID: 2042093467}
-  gridSize: {x: 40, y: 20}
+  gridSize: {x: 80, y: 40}
   healthyCount: 0
   cancerCount: 0
   emptyCount: 0
