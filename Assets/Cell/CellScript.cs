@@ -50,7 +50,7 @@ public class CellScript : MonoBehaviour {
 
 		Divide ();
 
-		//Mutate ();
+		Mutate ();
 	}
 
 	bool Die () {
@@ -110,8 +110,8 @@ public class CellScript : MonoBehaviour {
 		if (_mutateChance > rng) {
 			// become cancer cell
 
-			_divideDelayInSeconds /= 20;
-			_deathDelayInSeconds *= 20;
+			_divideDelayInSeconds /= 4;
+			_deathDelayInSeconds *= 4;
 
 			_mutateChance = 0;
 			_mutated = true;
