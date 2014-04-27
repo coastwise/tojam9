@@ -24,6 +24,9 @@ public class PlayArea : GLMonoBehaviour {
 	}
 
 	public void Update () {
+
+		//Time.timeScale = 0.1f;
+
 		if(Input.GetMouseButtonDown(0)) {
 			Vector3 worldPosition = ExampleUtils.ScreenToWorld(root, Input.mousePosition);
 			

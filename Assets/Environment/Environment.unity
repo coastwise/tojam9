@@ -196,7 +196,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -212,7 +212,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 365895451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: -.25, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -243,10 +243,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d4dea7a7a4448e0ae4396b8a8fab05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthyCellPrefab: {fileID: 11400000, guid: dfbaf6ee0a2e94e598cbe024cee7e703, type: 2}
-  cancerCellPrefab: {fileID: 11400000, guid: aa652036a9fc64deb85d3fdb8d0b477c, type: 2}
+  healthyCellPrefab: {fileID: 11400000, guid: 0b9f3ada8781c744ab8b892ab496c92b, type: 2}
+  cancerCellPrefab: {fileID: 11400000, guid: 93f70df4ddc5c2748abe3e39b505c3a0, type: 2}
   root: {fileID: 2042093467}
-  gridSize: {x: 100, y: 50}
+  gridSize: {x: 40, y: 20}
 --- !u!4 &2042093469
 Transform:
   m_ObjectHideFlags: 0
@@ -254,7 +254,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2042093467}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .257440358, y: -.544302821, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
