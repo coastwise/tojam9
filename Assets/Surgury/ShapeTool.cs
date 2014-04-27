@@ -34,6 +34,9 @@ public class ShapeTool : Treatment {
 		MeshFilter filter = gameObject.AddComponent(typeof(MeshFilter)) as MeshFilter;
 		filter.mesh = msh;
 		renderer.material = hilight;
+
+		renderer.sortingOrder = 2;
+		renderer.sortingLayerName = "overlay";
 	}
 
 	// Update is called once per frame
