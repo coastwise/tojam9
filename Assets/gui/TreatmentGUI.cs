@@ -126,6 +126,8 @@ public class TreatmentGUI : MonoBehaviour {
 				//			draw surgery effect, play surgery sound
 				if (Cooldown[TreatmentType.Surgery] <= 0)
 					EnableSurgery(resection);
+
+				openedButton = 0;
 			}
 			jBut++;
 
@@ -139,6 +141,8 @@ public class TreatmentGUI : MonoBehaviour {
 				//			draw surgery effect, play surgery sound
 				if (Cooldown[TreatmentType.Surgery] <= 0)
 					EnableSurgery(radical);
+
+				openedButton = 0;
 			}
 			jBut++;
 
@@ -152,6 +156,8 @@ public class TreatmentGUI : MonoBehaviour {
 				//			draw surgery effect, play surgery sound
 				if (Cooldown[TreatmentType.Surgery] <= 0)
 					EnableSurgery(laparoscopic);
+
+				openedButton = 0;
 			}
 			jBut++;
 
@@ -165,6 +171,8 @@ public class TreatmentGUI : MonoBehaviour {
 				//			draw laser effect, play laser sound (pew pew)
 				if (Cooldown[TreatmentType.Surgery] <= 0)
 					EnableSurgery(laser);
+
+				openedButton = 0;
 			}
 			jBut++;
 
@@ -208,6 +216,7 @@ public class TreatmentGUI : MonoBehaviour {
 				//			cancer cell death rate is greatly increased (quadrupled?) for a time (same as above) globally
 				//			all cell mutation rate is slightly increased (1.5x? - multiply is no good if normal rate is zero by default) for a time (same as above) globally
 				//			draw radiation effect, play radiation sound
+				openedButton = 0;
 			}
 			jBut++;
 			
@@ -222,6 +231,7 @@ public class TreatmentGUI : MonoBehaviour {
 				//			cancer cell death rate is greatly increased (quadrupled?) in the region forever
 				//			all cell mutation rate is slightly increased (1.5x? - multiply is no good if normal rate is zero by default) in the region forever
 				//			draw radiation effect, play radiation sound
+				openedButton = 0;
 			}
 			jBut++;
 			
@@ -235,6 +245,7 @@ public class TreatmentGUI : MonoBehaviour {
 				//			cancer cell death rate is greatly increased (quadrupled?) for a time (same as above) in the region
 				//			all cell mutation rate is slightly increased (1.5x? - multiply is no good if normal rate is zero by default) for a time (same as above) in the region
 				//			draw radiation effect, play radiation sound
+				openedButton = 0;
 			}
 			jBut++;
 			
@@ -248,6 +259,7 @@ public class TreatmentGUI : MonoBehaviour {
 				//			cancer cell death rate is very greatly increased (eight times?) for a time (same as above) in the beam
 				//			all cell mutation rate is increased (2.5x? - multiply is no good if normal rate is zero by default) for a time (same as above) in the beam
 				//			draw radiation effect, play radiation sound
+				openedButton = 0;
 			}
 			jBut++;
 
@@ -287,8 +299,11 @@ public class TreatmentGUI : MonoBehaviour {
 				//			normal cell death rate is greatly increased (tripled?) for a time (5 seconds?) globally
 				//			cancer cell death rate is very greatly increased (six times?) for a time (same as above) globally
 				//			draw chemo effect, play chemo sound
-				if (Cooldown[TreatmentType.Chemo] <= 0)
+				if (Cooldown[TreatmentType.Chemo] <= 0){
 					Chloromethine.gameObject.SetActive(true);
+				}
+
+				openedButton = 0;
 			}
 			jBut++;
 			
@@ -303,6 +318,7 @@ public class TreatmentGUI : MonoBehaviour {
 				//			normal cell death rate is increased (doubled times?) for a time (same as above) globally
 				//			cancer cell death rate is increased (tripled times?) for a time (same as above) globally
 				//			draw chemo effect, play chemo sound
+				openedButton = 0;
 			}
 			jBut++;
 			
@@ -317,6 +333,7 @@ public class TreatmentGUI : MonoBehaviour {
 				//			normal cell death rate is increased (1.5x times?) for a time (same as above) globally
 				//			cancer cell death rate is increased (doubled?) for a time (same as above) globally
 				//			draw chemo effect, play chemo sound
+				openedButton = 0;
 			}
 			jBut++;
 			
@@ -331,6 +348,7 @@ public class TreatmentGUI : MonoBehaviour {
 				//			normal cell death rate is increased (doubled times?) for a time (same as above) globally
 				//			cancer cell death rate is increased proportional to its current mutation rate (higher mutation = higher rate) for a time (same as above) globally
 				//			draw chemo effect, play chemo sound
+				openedButton = 0;
 			}
 			jBut++;
 
