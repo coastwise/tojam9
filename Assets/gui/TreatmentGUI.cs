@@ -318,98 +318,98 @@ public class TreatmentGUI : MonoBehaviour {
 
 
 
+//		No time for these
+//
+//
+//		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Genetics")) {
+//			if(openedButton == iBut + 1)
+//			{
+//				openedButton = 0;
+//				
+//			}
+//			else
+//			{
+//				openedButton = iBut + 1;
+//			}
+//		}
+//		
+//		if (openedButton == iBut + 1) {
+//			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
+//
+//			openTab = new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight);
+//
+//			jBut = 0;
+//			
+//			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Sanger Sequencing"))) {
+//			}
+//			jBut++;
+//			
+//			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Exome Sequencing"))) {
+//			}
+//			jBut++;
+//			
+//			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Whole Genome Sequencing"))) {
+//			}
+//			jBut++;
+//			
+//			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Single Cell Sequencing"))) {
+//			}
+//			jBut++;
+//
+//			GUI.Label (new Rect ((float)(buttonWidth + buttonPad * 5), (float)((iBut * (buttonHeight + buttonPad)) + buttonHeight) - 10, (float)popWidth, 40), GUI.tooltip);
+//		}
+//		iBut++;
+//
+//
+//
+//
+//
+//
+//		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Targeted Drugs")) {
+//			if(openedButton == iBut + 1)
+//			{
+//				openedButton = 0;
+//				
+//			}
+//			else
+//			{
+//				openedButton = iBut + 1;
+//			}
+//		}
+//		
+//		if (openedButton == iBut + 1) {
+//			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
+//
+//			openTab = new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight);
+//
+//			jBut = 0;
+//			
+//				if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Trastuzumab"))) {
+//			}
+//			jBut++;
+//			
+//				if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Imatinib"))) {
+//			}
+//			jBut++;
+//			
+//				if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Vemurafenib"))) {
+//			}
+//			jBut++;
+//			
+//			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Crizotinib"))) {
+//			}
+//			jBut++;
+//
+//			GUI.Label (new Rect ((float)(buttonWidth + buttonPad * 5), (float)((iBut * (buttonHeight + buttonPad)) + buttonHeight) - 10, (float)popWidth, 40), GUI.tooltip);
+//		}
+//		iBut++;
+//
 
 
 
-		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Genetics")) {
-			if(openedButton == iBut + 1)
-			{
-				openedButton = 0;
-				
-			}
-			else
-			{
-				openedButton = iBut + 1;
-			}
-		}
-		
-		if (openedButton == iBut + 1) {
-			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
-
-			openTab = new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight);
-
-			jBut = 0;
-			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Sanger Sequencing"))) {
-			}
-			jBut++;
-			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Exome Sequencing"))) {
-			}
-			jBut++;
-			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Whole Genome Sequencing"))) {
-			}
-			jBut++;
-			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Single Cell Sequencing"))) {
-			}
-			jBut++;
-
-			GUI.Label (new Rect ((float)(buttonWidth + buttonPad * 5), (float)((iBut * (buttonHeight + buttonPad)) + buttonHeight) - 10, (float)popWidth, 40), GUI.tooltip);
-		}
-		iBut++;
 
 
-
-
-
-
-		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Targeted Drugs")) {
-			if(openedButton == iBut + 1)
-			{
-				openedButton = 0;
-				
-			}
-			else
-			{
-				openedButton = iBut + 1;
-			}
-		}
-		
-		if (openedButton == iBut + 1) {
-			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
-
-			openTab = new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight);
-
-			jBut = 0;
-			
-				if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Trastuzumab"))) {
-			}
-			jBut++;
-			
-				if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Imatinib"))) {
-			}
-			jBut++;
-			
-				if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Vemurafenib"))) {
-			}
-			jBut++;
-			
-			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Crizotinib"))) {
-			}
-			jBut++;
-
-			GUI.Label (new Rect ((float)(buttonWidth + buttonPad * 5), (float)((iBut * (buttonHeight + buttonPad)) + buttonHeight) - 10, (float)popWidth, 40), GUI.tooltip);
-		}
-		iBut++;
-
-
-
-
-
-
-
+	
 		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Future Tech")) {
 			if(openedButton == iBut + 1)
 			{
@@ -456,9 +456,17 @@ public class TreatmentGUI : MonoBehaviour {
 		iBut++;
 
 
+		iBut++;
+		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Quit")) {
+			Application.Quit();
+		}
+
+
+
 
 		// draw cooldown bars
 		GUI.skin = cooldownBarSkin;
+		GUI.color = new Color (1, 0, 0, 0.3f);
 		iBut = 0;
 
 		GUI.Box(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)((buttonWidth * Cooldown[TreatmentType.Surgery]) / CooldownMax[TreatmentType.Surgery]), (float)buttonHeight), "");
