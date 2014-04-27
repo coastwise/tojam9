@@ -49,11 +49,9 @@ public class PlayArea : GLMonoBehaviour {
 			if (Random.value < 0.5f) SpawnCell(healthyCellPrefab, point);
 		}
 
-		int x = (int)Random.Range(gridSize.x/3, 2*gridSize.x/3);
-		int y = (int)Random.Range(gridSize.y/3, 2*gridSize.y/3);
-		Debug.Log(x+","+y);
-		FlatHexPoint cancerSpawnPoint = new FlatHexPoint(x, y);
-		if (grid[cancerSpawnPoint] != null) Destroy (grid[cancerSpawnPoint]);
+		FlatHexPoint cancerSpawnPoint = grid.ToArray<FlatHexPoint> ()[(int)Random.Range (0, grid.ToArray<FlatHexPoint>().Count())];
+
+		if (grid[cancerSpawnPoint] != null) Destroy (grid[cancerSpawnPoint].gameObject);
 		SpawnCell(cancerCellPrefab, cancerSpawnPoint);
 	}
 
