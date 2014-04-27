@@ -74,7 +74,7 @@ public class HealthBarScript : MonoBehaviour {
 		GUI.color = healthyColor;
 		GUI.Box (new Rect (Screen.width - barWidth, (float)(Screen.height - barHeight + (barPad * 0)) + cancerHeight + (emptyHeight / 2), barWidth - barPad * 2, healthyHeight), "");
 
-		if ((area.healthyCount - minHealthy) < dangerZone) {
+		if ((CellScript.healthyCount - minHealthy) < dangerZone) {
 			// flash bar
 			if (healthyMusicPlaying) {
 				audio.clip = cancerMusic;
@@ -113,10 +113,10 @@ public class HealthBarScript : MonoBehaviour {
 		GUI.color = defaultColor;
 		GUI.skin = cellIconSkin;
 
-		if (area.cancerCount > 0) {
+		if (CellScript.cancerCount > 0) {
 			GUI.Box (new Rect (Screen.width - ((barWidth) / 2) - barPad * 3, (float)(Screen.height - barHeight - (barPad * 0.5) + (emptyHeight / 2)), barPad * 4, barPad * 4), cancerPic); 
 		}
-		if (area.healthyCount - minHealthy > 0) {
+		if (CellScript.healthyCount - minHealthy > 0) {
 			GUI.Box (new Rect (Screen.width - ((barWidth) / 2) - barPad * 3, (float)(Screen.height - barPad * 5.5) - (emptyHeight / 2), barPad * 4, barPad * 4), healthyPic);
 		}
 
@@ -125,7 +125,7 @@ public class HealthBarScript : MonoBehaviour {
 		// check for chemo'd or radiation'd
 		// make bar green or radioative logo
 
-		if (area.healthyCount - minHealthy < 1) {
+		if (CellScript.healthyCount - minHealthy < 1) {
 			// game over
 			print("Game Over!");
 
