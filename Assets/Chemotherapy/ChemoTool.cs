@@ -29,11 +29,12 @@ public class ChemoTool : Treatment {
 
 	
 	IEnumerator ApplyChemo() {
-
+		Debug.Log ("start chemo");
 		CellScript.chemoHealthyDeath += 2.0f;
 		CellScript.chemoCancerDeath += 16.0f;
 
 		yield return new WaitForSeconds (duration);
+		Debug.Log ("end chemo");
 		CellScript.chemoHealthyDeath -= 2.0f;
 		CellScript.chemoCancerDeath -= 16.0f;
 		
