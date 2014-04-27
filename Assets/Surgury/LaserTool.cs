@@ -54,7 +54,7 @@ public class LaserTool : Treatment {
 
 			lineRenderer.SetPosition(1, endPoint);
 
-			if (Input.GetMouseButtonDown(0)) {
+			if (Input.GetMouseButtonDown(0) && !effect.activeSelf) {
 				lineRenderer.enabled = false;
 
 				TreatmentGUI.AddCooldown(type, cooldown);
