@@ -11,6 +11,8 @@ public class LaserTool : Treatment {
 	public Vector3 startPoint;
 	public Vector3 endPoint;
 
+	public GameObject effect;
+
 	protected LineRenderer lineRenderer;
 	
 	void OnEnable () {
@@ -36,26 +38,30 @@ public class LaserTool : Treatment {
 			lineRenderer.SetPosition(1, endPoint);
 
 			if (Input.GetMouseButtonDown(0)) {
-				StartCoroutine(Zap());
+				lineRenderer.enabled = false;
+
+				TreatmentGUI.AddCooldown(type, cooldown);
+
+				effect.SetActive(true);
+				effect.transform.position = startPoint;
+				iTween.MoveTo(effect, iTween.Hash("position", endPoint,
+				                                  "time", 2f,
+				                                  "easetype", iTween.EaseType.linear,
+				                                  "oncompletetarget", this.gameObject,
+				                                  "oncomplete", "ZapComplete"));
+			}
+		}
+
+		if (effect.activeSelf) {
+			FlatHexPoint testPos = area.map[effect.transform.position];
+			if (area.grid[testPos] != null) {
+				Destroy(area.grid[testPos].gameObject);
 			}
 		}
 	}
 
-	IEnumerator Zap () {
-		lineRenderer.enabled = false;
-		TreatmentGUI.AddCooldown(type, cooldown);
-
-		float dist = Vector3.Distance(startPoint, endPoint);
-		for (int i = 0; i < dist; i++) {
-			float t = (float) i / dist;
-			Vector3 test = Vector3.Lerp(startPoint, endPoint, t);
-			FlatHexPoint testPos = area.map[test];
-			if (area.grid[testPos] != null) {
-				Destroy(area.grid[testPos].gameObject);
-			}
-			yield return new WaitForSeconds(0.1f);
-		}
-
+	public void ZapComplete () {
+		effect.SetActive(false);
 		gameObject.SetActive(false);
 	}
 }
