@@ -40,7 +40,7 @@ public class ShapeTool : Treatment {
 	void Update () {
 		Vector3 worldPosition = ExampleUtils.ScreenToWorld(area.root, Input.mousePosition);
 		worldPosition = new Vector3(worldPosition.x, worldPosition.y, -1);
-		this.transform.localPosition = worldPosition;
+		this.transform.position = worldPosition;
 
 		if (!Input.GetMouseButtonDown(0)) return; // only destroy if we click
 

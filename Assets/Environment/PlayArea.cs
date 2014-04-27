@@ -47,7 +47,7 @@ public class PlayArea : GLMonoBehaviour {
 		grid = (FlatHexGrid<CellScript>)FlatHexGrid<CellScript>.FatRectangle((int)gridSize.x, (int)gridSize.y);
 		
 		map = new FlatHexMap(CellDimensions)
-			.AnchorCellMiddleCenter()
+			.AnchorCellTopLeft()
 			.WithWindow(ExampleUtils.ScreenRect)
 			.AlignMiddleCenter(grid)
 			.To3DXY();
