@@ -29,8 +29,27 @@ public class CellScript : MonoBehaviour {
 
 	public bool animating = false;
 	public Vector3 animationTarget;
-	
+
+	public Animator anim;
+
+	public float timeSinceMutation;
+	public float animTime = 1.0f;
+	public bool cancer;
+
+	void Start(){
+		anim = this.GetComponent<Animator>();
+	}
+
 	void Update () {
+
+		if(gameObject.tag == "healthy" && _mutated){
+			if(Time.time - timeSinceMutation >= animTime){
+				//anim.SetBool("cancer", true);
+				anim.runtimeAnimatorController = area.cancerCellPrefab.gameObject.GetComponent<Animator>().runtimeAnimatorController;
+				gameObject.tag = "cancer";
+			}
+		}
+
 		if (!animating) return;
 		iTween.MoveUpdate(gameObject, iTween.Hash("position", animationTarget,
 		                                          "islocal", true,
@@ -39,6 +58,7 @@ public class CellScript : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+
 		_divideChance = 1 / (_divideDelayInSeconds * (1 / Time.fixedDeltaTime));
 		_deathChance = 1 / (_deathDelayInSeconds * (1 / Time.fixedDeltaTime));
 		if (!_mutated) _mutateChance = (_mutationFactor * Time.fixedDeltaTime) / 100;
@@ -46,7 +66,6 @@ public class CellScript : MonoBehaviour {
 		if (Die ()) {
 			return;
 		}
-
 
 		Divide ();
 
@@ -87,7 +106,8 @@ public class CellScript : MonoBehaviour {
 				}
 			}
 
-			if (grid.GetNeighbors(hexPoint, (CellScript n) => n._mutated).Count() == 6) {
+			if (grid.GetNeighbors(hexPoint, (CellScript n) => n._mutated).Count() == 
+			    grid.GetNeighbors(hexPoint, (CellScript n) => n != null).Count()) {
 				// don't split, totally surrounded by cancer.
 				return;
 			}
@@ -118,8 +138,15 @@ public class CellScript : MonoBehaviour {
 
 			onlyDivideIntoEmptyNeighbour = false;
 
-			Material newMat = Resources.Load ("CancerCellMaterial", typeof(Material)) as Material;
-			gameObject.renderer.material = newMat;
+			//Material newMat = Resources.Load ("CancerCellMaterial", typeof(Material)) as Material;
+			//gameObject.renderer.material = newMat;
+
+			anim.SetBool("mutate", true);
+			timeSinceMutation = Time.time;
+			Debug.Log("timesincemutation: " + timeSinceMutation);
+
+			GetComponent<SpriteRenderer>().sortingLayerName = "cancer";
+			GetComponent<SpriteRenderer>().sortingOrder = 1;
 
 			Debug.Log ("Mutated!");
 		}

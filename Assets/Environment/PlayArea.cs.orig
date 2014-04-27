@@ -23,7 +23,29 @@ public class PlayArea : GLMonoBehaviour {
 		BuildGrid();
 	}
 
+<<<<<<< HEAD
+	public void Update () {
 
+		//Time.timeScale = 0.1f;
+
+		if(Input.GetMouseButtonDown(0)) {
+			Vector3 worldPosition = ExampleUtils.ScreenToWorld(root, Input.mousePosition);
+			
+			FlatHexPoint hexPoint = map[worldPosition];
+			
+			if (grid.Contains(hexPoint) && grid[hexPoint] != null) {
+				MoveAndBump(grid[hexPoint], hexPoint+FlatHexPoint.North, FlatHexPoint.North);
+				grid[hexPoint] = null;
+			}
+			
+			else { // if cell is empty, create a sphere at that point
+				SpawnCell(healthyCellPrefab, map[worldPosition]);
+			}
+		}
+	}
+
+=======
+>>>>>>> origin/master
 	public void MoveAndBump (CellScript incoming, FlatHexPoint point, FlatHexPoint dir) {
 		if (!grid.Contains(point)) {
 			Destroy (incoming.gameObject);
@@ -50,9 +72,11 @@ public class PlayArea : GLMonoBehaviour {
 			if (Random.value < 0.5f) SpawnCell(healthyCellPrefab, point);
 		}
 
-		FlatHexPoint cancerSpawnPoint = grid.ToArray<FlatHexPoint> ()[(int)Random.Range (0, grid.ToArray<FlatHexPoint>().Count())];
-
-		if (grid[cancerSpawnPoint] != null) Destroy (grid[cancerSpawnPoint].gameObject);
+		int x = (int)Random.Range(gridSize.x/3, 2*gridSize.x/3);
+		int y = (int)Random.Range(gridSize.y/3, 2*gridSize.y/3);
+		Debug.Log(x+","+y);
+		FlatHexPoint cancerSpawnPoint = new FlatHexPoint(x, y);
+		if (grid[cancerSpawnPoint] != null) Destroy (grid[cancerSpawnPoint]);
 		SpawnCell(cancerCellPrefab, cancerSpawnPoint);
 	}
 
