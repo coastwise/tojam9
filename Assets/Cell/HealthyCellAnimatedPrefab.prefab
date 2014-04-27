@@ -56,7 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _divideDelayInSeconds: 100
   _calcDivide: 0
-  _deathDelayInSeconds: 100
+  _deathDelayInSeconds: 150
   _calcDeath: 0
   _mutationFactor: .00999999978
   _mutateChance: 0
