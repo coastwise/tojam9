@@ -19,8 +19,27 @@ public class PlayArea : GLMonoBehaviour {
 
 	public Vector2 gridSize;
 
+	public int healthyCount;
+	public int cancerCount;
+	public int emptyCount;
+
 	public void Start () {
 		BuildGrid();
+	}
+
+	public void FixedUpdate () {
+		healthyCount = 0;
+		cancerCount = 0;
+		emptyCount = 0;
+		foreach (FlatHexPoint point in grid) {
+			if (grid[point] == null) {
+				emptyCount++;
+			} else if (grid[point].IsMutated()) {
+				cancerCount++;
+			} else {
+				healthyCount++;
+			}
+		}
 	}
 
 	public void MoveAndBump (CellScript incoming, FlatHexPoint point, FlatHexPoint dir) {
