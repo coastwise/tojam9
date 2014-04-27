@@ -36,11 +36,11 @@ public class HealthBarScript : MonoBehaviour {
 
 		GUI.Box(new Rect(Screen.width - barWidth - barPad, Screen.height - barHeight - barPad, barWidth, barHeight), "");
 
-		var totalHeight = area.cancerCount + area.emptyCount + area.healthyCount - minHealthy;
+		var totalHeight = CellScript.cancerCount + area.emptyCount + CellScript.healthyCount - minHealthy;
 
-		var cancerHeight = (area.cancerCount / (float)totalHeight) * (barHeight - barPad*2);
+		var cancerHeight = (CellScript.cancerCount / (float)totalHeight) * (barHeight - barPad*2);
 		var emptyHeight = (area.emptyCount / (float)totalHeight) * (barHeight - barPad*2);
-		var healthyHeight = ((area.healthyCount - minHealthy) / (float)totalHeight) * (barHeight - barPad*2);
+		var healthyHeight = ((CellScript.healthyCount - minHealthy) / (float)totalHeight) * (barHeight - barPad*2);
 
 		if (healthyHeight < 0) {
 			healthyHeight = 0;

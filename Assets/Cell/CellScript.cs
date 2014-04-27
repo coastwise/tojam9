@@ -20,7 +20,7 @@ public class CellScript : MonoBehaviour {
 	public bool onlyDivideIntoEmptyNeighbour = true;
 
 	float mutateChance;
-	public bool _mutated = false;
+	private bool _mutated = false;
 
 	public FlatHexGrid<CellScript> grid;
 	public FlatHexPoint hexPoint;
@@ -36,9 +36,28 @@ public class CellScript : MonoBehaviour {
 	public float animTime = 1.0f;
 	public bool cancer;
 
+	public static int healthyCount = 0;
+	public static int cancerCount = 0;
+
 	void Start(){
 		anim = this.GetComponent<Animator>();
 		StartCoroutine (StartCoroutineDie());
+	}
+
+	void OnEnable () {
+		if (_mutated) {
+			cancerCount++;
+		} else {
+			healthyCount++;
+		}
+	}
+
+	void OnDisable () {
+		if (_mutated) {
+			cancerCount--;
+		} else {
+			healthyCount--;
+		}
 	}
 
 	void Update () {
@@ -121,6 +140,9 @@ public class CellScript : MonoBehaviour {
 
 			_mutateChance = 0;
 			_mutated = true;
+
+			healthyCount--;
+			cancerCount++;
 
 			onlyDivideIntoEmptyNeighbour = false;
 
