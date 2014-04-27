@@ -20,6 +20,7 @@ public class PlayArea : GLMonoBehaviour {
 	public Vector2 gridSize;
 
 	public void Start () {
+		ObjectPool.CreatePool (healthyCellPrefab);
 		BuildGrid();
 	}
 
@@ -42,7 +43,7 @@ public class PlayArea : GLMonoBehaviour {
 
 	public void MoveAndBump (CellScript incoming, FlatHexPoint point, FlatHexPoint dir) {
 		if (!grid.Contains(point)) {
-			Destroy (incoming.gameObject);
+			ObjectPool.Recycle (incoming);
 			return;
 		}
 		CellScript bumped = grid[point];
@@ -63,30 +64,39 @@ public class PlayArea : GLMonoBehaviour {
 			.To3DXY();
 		
 		foreach(FlatHexPoint point in grid) {
-			if (Random.value < 0.5f) SpawnCell(healthyCellPrefab, point);
+			CellScript c = SpawnCell(healthyCellPrefab, point);
+		}
+		
+		foreach(FlatHexPoint point in grid) {
+
+			if (Random.value < 0.5f) grid[point].Recycle();
+			//grid[point].Recycle();
 		}
 
 		int x = (int)Random.Range(gridSize.x/3, 2*gridSize.x/3);
 		int y = (int)Random.Range(gridSize.y/3, 2*gridSize.y/3);
 		Debug.Log(x+","+y);
 		FlatHexPoint cancerSpawnPoint = new FlatHexPoint(x, y);
-		if (grid[cancerSpawnPoint] != null) Destroy (grid[cancerSpawnPoint]);
-		SpawnCell(cancerCellPrefab, cancerSpawnPoint);
+		if (grid[cancerSpawnPoint] != null) ObjectPool.Recycle (grid[cancerSpawnPoint]);
+		SpawnCell(healthyCellPrefab, cancerSpawnPoint).Mimic(cancerCellPrefab);
 	}
 
-	public void SpawnCell (CellScript prefab, FlatHexPoint point) {
-		SpawnCell (prefab, point, FlatHexPoint.Zero);
+	public CellScript SpawnCell (CellScript prefab, FlatHexPoint point) {
+		return SpawnCell (prefab, point, FlatHexPoint.Zero);
 	}
 
-	public void SpawnCell (CellScript prefab, FlatHexPoint point, FlatHexPoint bumpDirection) {
+	public CellScript SpawnCell (CellScript prefab, FlatHexPoint point, FlatHexPoint bumpDirection) {
 		if (!grid.Contains(point)) {
 			Debug.LogError("tried to spawn cell outside of grid");
-			return;
+			return null;
 		}
 
-		CellScript cell = Instantiate(prefab.gameObject).GetComponent<CellScript>();
+		CellScript cell = ObjectPool.Spawn (prefab);
+
+
 		Vector3 worldPoint = map[point - bumpDirection];
-		
+
+
 		cell.transform.parent = root.transform;
 		cell.transform.localScale = Vector3.one;
 		cell.transform.localPosition = worldPoint;
@@ -96,15 +106,20 @@ public class PlayArea : GLMonoBehaviour {
 		cell.grid = grid;
 		cell.hexPoint = point;
 		cell.area = this;
+		
+		cell.name = point.ToString();
 
 		if (bumpDirection != FlatHexPoint.Zero) {
+
 			MoveAndBump(cell, point, bumpDirection);
 		} else {
 			if (grid[point] != null) {
-				Destroy (grid[point].gameObject);
+				ObjectPool.Recycle(grid[point]);
 			}
 			grid[point] = cell;
 		}
+
+		return cell;
 	}
 
 

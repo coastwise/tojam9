@@ -43,9 +43,9 @@ public class CellScript : MonoBehaviour {
 		_deathChance = 1 / (_deathDelayInSeconds * (1 / Time.fixedDeltaTime));
 		if (!_mutated) _mutateChance = (_mutationFactor * Time.fixedDeltaTime) / 100;
 
-		if (Die ()) {
-			return;
-		}
+		//if (Die ()) {
+		//	return;
+		//}
 
 
 		Divide ();
@@ -54,35 +54,24 @@ public class CellScript : MonoBehaviour {
 	}
 
 	bool Die () {
-		float rng = Random.Range (0.0f,1.0f);
-
-		int mutatedCount = 0;
-		if (!_mutated && grid.GetNeighbors(hexPoint, (CellScript n) => n != null && n._mutated).Count() == 6) {
-		
-			Destroy (this.gameObject);
-
-		}
-
-		if (_deathChance > rng) {
-
-			// do a death animation and Destroy at the end
-			Destroy (this.gameObject);
+		if (_deathChance > Random.Range (0.0f,1.0f) ||
+			!_mutated && grid.GetNeighbors(hexPoint, (CellScript n) => n != null && n._mutated).Count() == 6) {
+			ObjectPool.Recycle (this);
 		}
 
 		return false;
 	}
 
 	void Divide () {
-		float rng = Random.Range (0.0f,1.0f);
 		
-		if (_divideChance > rng) {
+		if (_divideChance > Random.Range (0.0f,1.0f)) {
 
 
 			foreach (FlatHexPoint direction in grid.GetNeighborDirections()) {
 				FlatHexPoint neighbour = hexPoint + direction;
 				if (grid.Contains(neighbour) && grid[neighbour] == null) {
 					// send ourselves as the prefab!
-					area.SpawnCell(this, neighbour, direction);
+					area.SpawnCell(area.healthyCellPrefab, neighbour, direction).Mimic (this);
 					return;
 				}
 			}
@@ -99,15 +88,13 @@ public class CellScript : MonoBehaviour {
 					.Where(d => grid.Contains(hexPoint + d))
 					.ToArray();
 				FlatHexPoint dir = directions[Random.Range(0, directions.Length)];
-				area.SpawnCell(this, hexPoint + dir, dir);
+				area.SpawnCell(area.healthyCellPrefab, hexPoint + dir, dir).Mimic (this);
 			}
 		}
 	}
 
 	void Mutate () {
-		float rng = Random.Range (0.0f,1.0f);
-
-		if (_mutateChance > rng) {
+		if (_mutateChance > Random.Range (0.0f,1.0f)) {
 			// become cancer cell
 
 			_divideDelayInSeconds /= 20;
@@ -125,10 +112,21 @@ public class CellScript : MonoBehaviour {
 		}
 	}
 
+	public void Mimic (CellScript c) {
+		_divideDelayInSeconds = c._divideDelayInSeconds;
+		_deathDelayInSeconds = c._deathDelayInSeconds;
+		_divideChance = c._divideChance;
+		_deathChance = c._deathChance;
+		_mutationFactor = c._mutationFactor;
+		onlyDivideIntoEmptyNeighbour = c.onlyDivideIntoEmptyNeighbour;
+		_mutated = c._mutated;
+		gameObject.renderer.material = c.gameObject.renderer.material;
+		hexPoint = c.hexPoint;
+	}
+
 	public bool IsMutated () {
 		return _mutated;
 	}
-
 
 	bool IsEmpty (FlatHexPoint point) {
 		return grid[point] == null;
