@@ -1,9 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TreatmentGUI : MonoBehaviour {
-	
+
+	public Treatment resection;
+	public Treatment radical;
+	public Treatment laparoscopic;
+	public Treatment laser;
+
 	private int openedButton = 0;		// 0 for no buttons
+
+	public static Dictionary<TreatmentType, float> Cooldown;// = new Dictionary<TreatmentType, float>();
+	
+	void Start () {
+		Cooldown = new Dictionary<TreatmentType, float>();
+		Cooldown.Add(TreatmentType.Surgery, 0);
+		Cooldown.Add(TreatmentType.Chemo, 0);
+		Cooldown.Add(TreatmentType.Radiation, 0);
+		Cooldown.Add(TreatmentType.Targeted, 0);
+		Cooldown.Add(TreatmentType.FutureTech, 100);
+	}
+
+	void Update () {
+		List<TreatmentType> types = new List<TreatmentType>();
+		foreach (TreatmentType type in Cooldown.Keys) {
+			types.Add(type);
+		}
+		foreach (TreatmentType type in types) {
+			Cooldown[type] -= Time.deltaTime;
+		}
+	}
 	
 	void OnGUI () {
 		
@@ -54,7 +81,8 @@ public class TreatmentGUI : MonoBehaviour {
 				// 		if the player clicks on a hex
 				//			all cells in the region die immediately
 				//			draw surgery effect, play surgery sound
-						
+				if (Cooldown[TreatmentType.Surgery] <= 0)
+					resection.gameObject.SetActive(true);
 			}
 			jBut++;
 
@@ -65,6 +93,8 @@ public class TreatmentGUI : MonoBehaviour {
 				// 		if the player clicks on a hex
 				//			all cells in the region die immediately
 				//			draw surgery effect, play surgery sound
+				if (Cooldown[TreatmentType.Surgery] <= 0)
+					radical.gameObject.SetActive(true);
 			}
 			jBut++;
 
@@ -75,6 +105,8 @@ public class TreatmentGUI : MonoBehaviour {
 				// 		if the player clicks on a hex
 				//			all cells in the region die immediately
 				//			draw surgery effect, play surgery sound
+				if (Cooldown[TreatmentType.Surgery] <= 0)
+					laparoscopic.gameObject.SetActive(true);
 			}
 			jBut++;
 
@@ -85,6 +117,8 @@ public class TreatmentGUI : MonoBehaviour {
 				// 		if the player clicks on a hex
 				//			all cells in the line region die immediately
 				//			draw laser effect, play laser sound (pew pew)
+				if (Cooldown[TreatmentType.Surgery] <= 0)
+					laser.gameObject.SetActive(true);
 			}
 			jBut++;
 		}
@@ -315,7 +349,8 @@ public class TreatmentGUI : MonoBehaviour {
 				openedButton = iBut + 1;
 			}
 		}
-		
+
+		// starts witha cooldown
 		if (openedButton == iBut + 1) {
 			GUI.Box(new Rect(buttonWidth + buttonPad * 4, (float)(iBut * (buttonHeight + buttonPad) + buttonPad * 2), (float)popWidth, (float)buttonHeight), "");
 			

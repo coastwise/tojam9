@@ -3,7 +3,7 @@ using System.Collections;
 
 using Gamelogic.Grids;
 
-public class ShapeTool : MonoBehaviour {
+public class ShapeTool : Treatment {
 
 	public PlayArea area;
 
@@ -74,5 +74,7 @@ public class ShapeTool : MonoBehaviour {
 				}
 			}
 		}
+
+		Use (); // adds to cooldown
 	}
 }
