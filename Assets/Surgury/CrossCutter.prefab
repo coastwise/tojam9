@@ -8,11 +8,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
-  - 33: {fileID: 3300000}
-  - 23: {fileID: 2300000}
   - 114: {fileID: 11400000}
+  - 60: {fileID: 6000000}
   m_Layer: 0
-  m_Name: CancerCellPrefab
+  m_Name: CrossCutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,38 +24,33 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .257440358, y: -.544302821, z: 0}
+  m_LocalPosition: {x: .196413457, y: 3.58857012, z: -2.22541618}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!23 &2300000
-Renderer:
+--- !u!60 &6000000
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortingLayerID: 0
---- !u!33 &3300000
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Poly:
+    m_Paths:
+    - - {x: -1.76464486, y: .631055832}
+      - {x: -1.16378689, y: 1.43690681}
+      - {x: -.0424723178, y: .744830132}
+      - {x: .704670668, y: 1.55406666}
+      - {x: 1.71254635, y: .91345787}
+      - {x: .864599288, y: .0853514671}
+      - {x: 1.63462758, y: -.576922655}
+      - {x: 1.07245612, y: -1.46621251}
+      - {x: .0173076391, y: -.67696929}
+      - {x: -.984443069, y: -1.43075585}
+      - {x: -1.46899295, y: -.962818384}
+      - {x: -.71929276, y: .0125350952}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,18 +59,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7b4361a02c195047a59cb347809b843, type: 3}
+  m_Script: {fileID: 11500000, guid: c6cb55601a31643e8a61dac94fc99b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _divideDelayInSeconds: 50
-  _deathDelayInSeconds: 800
-  _mutationFactor: 0
-  _mutateChance: 0
-  onlyDivideIntoEmptyNeighbour: 0
-  _mutated: 1
   area: {fileID: 0}
-  animating: 0
-  animationTarget: {x: 0, y: 0, z: 0}
+  hilight: {fileID: 2100000, guid: a56c81b2cfe384696b3c2b8ae2f460e0, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
