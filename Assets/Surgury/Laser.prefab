@@ -73,6 +73,7 @@ MonoBehaviour:
   startPositionSet: 0
   startPoint: {x: 0, y: 0, z: 0}
   endPoint: {x: 0, y: 0, z: 0}
+  length: 10
   effect: {fileID: 100002}
 --- !u!120 &12000000
 LineRenderer:
