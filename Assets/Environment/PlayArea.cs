@@ -7,15 +7,15 @@ using Gamelogic.Grids;
 
 public class PlayArea : GLMonoBehaviour {
 
-	private readonly Vector2 CellDimensions = new Vector2(1,1);
+	public readonly Vector2 CellDimensions = new Vector2(1,1);
 	
 	public CellScript healthyCellPrefab;
 	public CellScript cancerCellPrefab;
 
 	public GameObject root;
 	
-	private FlatHexGrid<CellScript> grid;
-	private IMap3D<FlatHexPoint> map;
+	public FlatHexGrid<CellScript> grid;
+	public IMap3D<FlatHexPoint> map;
 
 	public Vector2 gridSize;
 
@@ -23,25 +23,8 @@ public class PlayArea : GLMonoBehaviour {
 		BuildGrid();
 	}
 
-	public void Update () {
 
 		//Time.timeScale = 0.1f;
-
-		if(Input.GetMouseButtonDown(0)) {
-			Vector3 worldPosition = ExampleUtils.ScreenToWorld(root, Input.mousePosition);
-			
-			FlatHexPoint hexPoint = map[worldPosition];
-			
-			if (grid.Contains(hexPoint) && grid[hexPoint] != null) {
-				MoveAndBump(grid[hexPoint], hexPoint+FlatHexPoint.North, FlatHexPoint.North);
-				grid[hexPoint] = null;
-			}
-			
-			else { // if cell is empty, create a sphere at that point
-				SpawnCell(healthyCellPrefab, map[worldPosition]);
-			}
-		}
-	}
 
 	public void MoveAndBump (CellScript incoming, FlatHexPoint point, FlatHexPoint dir) {
 		if (!grid.Contains(point)) {
