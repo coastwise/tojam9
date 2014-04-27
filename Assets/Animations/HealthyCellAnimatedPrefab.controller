@@ -50,24 +50,6 @@ Transition:
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
---- !u!1101 &110181044
-Transition:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_SrcState: {fileID: 110294612}
-  m_DstState: {fileID: 110222484}
-  m_TransitionDuration: .604924023
-  m_TransitionOffset: .118033946
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: cancer
-    m_EventTreshold: 0
-    m_ExitTime: .980000019
-  m_Atomic: 1
-  m_Solo: 0
-  m_Mute: 0
 --- !u!1102 &110200000
 State:
   m_ObjectHideFlags: 3
@@ -80,21 +62,6 @@ State:
   - {fileID: 7400000, guid: 3d34bbbdcdd9f9f42baa3451aef38420, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 72, y: -60, z: 0}
-  m_IKOnFeet: 0
-  m_Mirror: 0
-  m_Tag: 
---- !u!1102 &110222484
-State:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: ci
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Motions:
-  - {fileID: 7400000, guid: 2bdc3898f0d9d7743af243f60cf71871, type: 2}
-  m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: 84, y: 192, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
@@ -156,7 +123,6 @@ StateMachine:
   - {fileID: 110283982}
   - {fileID: 110257913}
   - {fileID: 110294612}
-  - {fileID: 110222484}
   m_ChildStateMachine: []
   m_ChildStateMachinePosition: []
   m_OrderedTransitions:
@@ -164,19 +130,18 @@ StateMachine:
       first: {fileID: 0}
       second: []
     data:
-      first: {fileID: 110294612}
+      first: {fileID: 110200000}
       second:
-      - {fileID: 110181044}
-    data:
-      first: {fileID: 110257913}
-      second: []
+      - {fileID: 110100000}
     data:
       first: {fileID: 110283982}
       second: []
     data:
-      first: {fileID: 110200000}
-      second:
-      - {fileID: 110100000}
+      first: {fileID: 110257913}
+      second: []
+    data:
+      first: {fileID: 110294612}
+      second: []
   m_MotionSetCount: 1
   m_AnyStatePosition: {x: -240, y: 12, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
