@@ -20,7 +20,7 @@ public class Treatment : MonoBehaviour {
 	public TreatmentType type;
 
 	virtual public void Use () {
-		TreatmentGUI.Cooldown[type] += cooldown;
+		TreatmentGUI.AddCooldown(type, cooldown);
 		gameObject.SetActive(false);
 	}
 	
