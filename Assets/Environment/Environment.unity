@@ -281,7 +281,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
+  m_BackGroundColor: {r: .284169555, g: .342560589, b: .529411793, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -292,8 +292,8 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
-  m_Depth: -1
+  orthographic size: 11.85989
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -308,7 +308,52 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 365895451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: -.232357025, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!1 &1067727026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1067727028}
+  - 114: {fileID: 1067727027}
+  m_Layer: 0
+  m_Name: Health Bar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1067727027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1067727026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 101512cdb007a48ed950db28c2bb7368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  area: {fileID: 2042093468}
+  healthyPic: {fileID: 2800000, guid: 00ae76bb7a72b46a3acff858fe87161c, type: 3}
+  cancerPic: {fileID: 2800000, guid: 0f831b033d65844d190d1d9b6f388991, type: 3}
+  healthyBarSkin: {fileID: 11400000, guid: ce3f7ab27c9dc4a9fb36f86d35d1cbb3, type: 2}
+  cancerBarSkin: {fileID: 11400000, guid: 71d99f39007ab496681a878be2d42a88, type: 2}
+  emptyBarSkin: {fileID: 11400000, guid: a9a7cfaf2ea994797a5ae77fca26ebb7, type: 2}
+  cellIconSkin: {fileID: 11400000, guid: 4dddd71cfff12436696e18a21940b452, type: 2}
+--- !u!4 &1067727028
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1067727026}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .657137632, y: -.876199126, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -343,6 +388,7 @@ MonoBehaviour:
   radical: {fileID: 1581932630}
   laparoscopic: {fileID: 1784380682}
   laser: {fileID: 0}
+  cooldownBarSkin: {fileID: 11400000, guid: ab8b019bc501146f39aac577fd5afb91, type: 2}
 --- !u!4 &1092072612
 Transform:
   m_ObjectHideFlags: 0
@@ -652,6 +698,9 @@ MonoBehaviour:
   cancerCellPrefab: {fileID: 11400000, guid: aa652036a9fc64deb85d3fdb8d0b477c, type: 2}
   root: {fileID: 2042093467}
   gridSize: {x: 40, y: 20}
+  healthyCount: 0
+  cancerCount: 0
+  emptyCount: 0
 --- !u!4 &2042093469
 Transform:
   m_ObjectHideFlags: 0
