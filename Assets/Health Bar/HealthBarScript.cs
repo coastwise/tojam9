@@ -18,6 +18,7 @@ public class HealthBarScript : MonoBehaviour {
 
 	private int minHealthy = 500;
 	private int dangerZone = 500;
+	private int minCancerToStart = 20;
 
 	private float lastBlink = 0;
 	private bool blinking = false;
@@ -33,6 +34,12 @@ public class HealthBarScript : MonoBehaviour {
 	private Color cancerColor = new Color((255/(float)255), (255/(float)255), (255/(float)255), (float)0.8);
 	private Color healthyColor = new Color ((249 / (float)255), (172 / (float)255), (138 / (float)255), (float)0.8);
 	private Color blinkColor = new Color ((255 / (float)255), (0 / (float)255), (0 / (float)255), (float)0.4);
+
+
+	public AudioClip healthyMusic;
+	public AudioClip cancerMusic;
+
+	private bool healthyMusicPlaying = true;
 
 	void OnGUI () {
 
@@ -69,20 +76,29 @@ public class HealthBarScript : MonoBehaviour {
 
 		if ((area.healthyCount - minHealthy) < dangerZone) {
 			// flash bar
+			if (healthyMusicPlaying) {
+				audio.clip = cancerMusic;
+				audio.Play ();
+				healthyMusicPlaying = false;
+			}
 
-			if (Time.realtimeSinceStartup > lastBlink + 0.2)
-			{
+			if (Time.realtimeSinceStartup > lastBlink + 0.2) {
 
 				lastBlink = Time.realtimeSinceStartup;
 				if (blinking == true) {
 					blinking = false;
-				}
-				else
-				{
+				} else {
 					blinking = true;
 				}
 			}
 
+		} else {
+			if (!healthyMusicPlaying)
+			{
+				audio.clip = healthyMusic;
+				audio.Play ();
+				healthyMusicPlaying = true;
+			}
 		}
 
 		if (blinking == true)
@@ -104,10 +120,7 @@ public class HealthBarScript : MonoBehaviour {
 			GUI.Box (new Rect (Screen.width - ((barWidth) / 2) - barPad * 3, (float)(Screen.height - barPad * 5.5) - (emptyHeight / 2), barPad * 4, barPad * 4), healthyPic);
 		}
 
-		if (area.healthyCount < dangerZone) {
-			// flash bar
 
-		}
 
 		// check for chemo'd or radiation'd
 		// make bar green or radioative logo
@@ -115,6 +128,7 @@ public class HealthBarScript : MonoBehaviour {
 		if (area.healthyCount - minHealthy < 1) {
 			// game over
 			print("Game Over!");
+
 		}
 
 

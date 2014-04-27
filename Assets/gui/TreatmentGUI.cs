@@ -11,6 +11,8 @@ public class TreatmentGUI : MonoBehaviour {
 
 	public GUISkin cooldownBarSkin;
 
+	public AudioClip clickSound;
+
 	private int openedButton = 0;		// 0 for no buttons
 
 	private static Dictionary<TreatmentType, float> Cooldown;
@@ -91,6 +93,9 @@ public class TreatmentGUI : MonoBehaviour {
 
 		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
 		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Surgery")) {
+			AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
+
+
 			if(openedButton == iBut + 1)
 			{
 				openedButton = 0;
@@ -111,6 +116,7 @@ public class TreatmentGUI : MonoBehaviour {
 
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Resection", "The earliest recorded surgery to remove a tumour was performed in ancient Egypt, more than 4,000 years ago.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// a cancel button appears where the original button was
 				// mouse highlights a medium sized hexagon region until the player clicks
 				// 		if the player cancels, nothing happens
@@ -123,6 +129,7 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut++;
 
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Radical Resection", "Radical surgery was pioneered by William Stewart Halsted.  In 1882, he performed the first radical mastectomy, in which a breast cancer tumour was treated by removing the entire breast, underlying muscles and nearby lymph nodes.  This aggressive, disfiguring surgery was the standard treatment for breast cancer until the 1970s.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// a cancel button appears where the original button was
 				// mouse highlights a large sized hexagon region until the player clicks
 				// 		if the player cancels, nothing happens
@@ -135,6 +142,7 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut++;
 
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Laparoscopic Resection", "Minimally invasive laparoscopic surgeries to resect portions of the colon have recently become popular due to lower risks and decreased recovery time.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// a cancel button appears where the original button was
 				// mouse highlights a small sized hexagon region until the player clicks
 				// 		if the player cancels, nothing happens
@@ -147,6 +155,7 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut++;
 
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Laser Ablation", "Focal laser ablation is currently in clinical trials as a way to directly target and destroy tumour tissue in prostate cancers.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// a cancel button appears where the original button was
 				// first mouse click anchors a line and then moving the mouse changes the direction of the line
 				// 		if the player cancels, nothing happens
@@ -169,6 +178,7 @@ public class TreatmentGUI : MonoBehaviour {
 
 		// Make the second button.
 		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Radiation")) {
+			AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 			if(openedButton == iBut + 1)
 			{
 				openedButton = 0;
@@ -188,6 +198,7 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut = 0;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("X-Ray Radiotherapy", "X-Rays were discovered by Wilhelm Röntgen in 1895.  Emil Grubbe started treating cancer patients with x-rays just one year later.  Marie Curie discovered two new radioactive elements (polonium and radium) in 1898 which kicked off a new era in medical treatment and research.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// a cancel button appears where the original button was
 				// the entire grid is highlighted
 				// 		if the player cancels, nothing happens
@@ -200,6 +211,7 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut++;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Brachytherapy", "Brachytherapy, the process of inserting radioactive seeds directly into a tumour, was first attempted in 1901.  Iridium pellets, the most common brachytherapy radiation source used to treat many different cancer types today, were first employed in 1958.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// a cancel button appears where the original button was
 				// a medium sized region around the mouse is highlighter
 				// 		if the player cancels, nothing happens
@@ -213,6 +225,7 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut++;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Gamma Knife", "The Gamma Knife administers high-intensity cobalt radiation in short bursts at many different angles centered on the tumour, such that the cancer receives a lethal dose but the surrounding tissue is spared.  It was invented in Sweden in 1967.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// a cancel button appears where the original button was
 				// a small region around the mouse is highlighted
 				// 		if the player cancels, nothing happens
@@ -225,6 +238,7 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut++;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Proton Radiotherapy", "Higher energy particles deliver higher doses of radiation with increased precision, and are often used to treat cancers such as ocular and skull base tumours.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// a cancel button appears where the original button was
 				// the first click anchors the beam on a cell, and then moving the mouse changes the orientation of the beam, which is 3 or 5 hexs wide and goes across the whole grid
 				// 		if the player cancels, nothing happens
@@ -244,6 +258,7 @@ public class TreatmentGUI : MonoBehaviour {
 
 
 		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Chemotherapy")) {
+			AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 			if(openedButton == iBut + 1)
 			{
 				openedButton = 0;
@@ -263,6 +278,7 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut = 0;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Chloromethine", "Chlormethine, also known as mustine, is a derivative of mustard gas that was tested on humans with lymphoma and leukemia in 1942 after doctors noticed very low white blood cell counts in mustard gas attack survivors.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// a cancel button appears where the original button was
 				// the entire grid is highlighted
 				// 		if the player cancels, nothing happens
@@ -274,6 +290,7 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut++;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Methotrexate", "Sidney Farber’s work in the middle of the 20th century treating children suffering from leukemia with antifolates such as aminopterin and methotrexate was instrumental in proving that drugs can cause remission in cancer.  He went on to become a prominent advocate for cancer research, raising millions of dollars in donations and government funding.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// a cancel button appears where the original button was
 				// the entire grid is highlighted
 				// 		if the player cancels, nothing happens
@@ -287,6 +304,7 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut++;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Doxorubicin", "In 1950, Italian and French researchers isolated daunorubicin from a red coloured bacteria that lived in the soil around a 13th century castle.  In 1967 researchers learned that daunorubicin could cause fatal cardiac toxicity.  Doxorubicin is a more effective derivative.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// a cancel button appears where the original button was
 				// the entire grid is highlighted
 				// 		if the player cancels, nothing happens
@@ -300,6 +318,7 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut++;
 			
 			if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Cisplatin", "Cisplatin was found to interfere with E.Coli cell division in 1965 at Michigan Statue University, and 4 years later it was shown to reduce the size of tumours in rats.  It was approved for use in human cancers in 1978.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// a cancel button appears where the original button was
 				// the entire grid is highlighted
 				// 		if the player cancels, nothing happens
@@ -411,6 +430,7 @@ public class TreatmentGUI : MonoBehaviour {
 
 	
 		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Future Tech")) {
+			AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 			if(openedButton == iBut + 1)
 			{
 				openedButton = 0;
@@ -431,22 +451,26 @@ public class TreatmentGUI : MonoBehaviour {
 			jBut = 0;
 			
 					if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Immunotherapy"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// cancer death rate goes up
 			}
 			jBut++;
 			
 					if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Oncolytic Virus"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// cancer death greatly increases
 				// normal death rate slightly increases
 			}
 			jBut++;
 			
 					if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Nanoparticles"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// cancer division rate greatly reduced
 			}
 			jBut++;
 			
 					if(GUI.Button(new Rect((float)((buttonWidth + buttonPad * 5) + (popButtonWidth + buttonPad) * jBut), (float)(iBut * (buttonHeight + buttonPad) + buttonPad*3), (float)popButtonWidth, (float)(buttonHeight - buttonPad*4)), new GUIContent("Goat on a Stick", "No explanation necessary.\n"))) {
+				AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 				// dumb spammy click a cell to kill it goat lol
 			}
 			jBut++;
@@ -458,6 +482,7 @@ public class TreatmentGUI : MonoBehaviour {
 
 		iBut++;
 		if(GUI.Button(new Rect(buttonPad * 2, (float)(iBut * (buttonHeight + buttonPad) + buttonPad*2), buttonWidth, (float)buttonHeight), "Quit")) {
+			AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
 			Application.Quit();
 		}
 
