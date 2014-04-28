@@ -54,9 +54,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b4361a02c195047a59cb347809b843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _divideDelayInSeconds: 25
+  _divideDelayInSeconds: 20
   _calcDivide: 0
-  _deathDelayInSeconds: 300
+  _deathDelayInSeconds: 240
   _calcDeath: 0
   _mutationFactor: 0
   _mutateChance: 1

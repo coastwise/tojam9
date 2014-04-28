@@ -18,9 +18,9 @@ public class TreatmentGUI : MonoBehaviour {
 	public Texture2D buttonImage;
 
 
-	public Texture2D normalDefault = GUI.skin.button.normal.background;
-	public Texture2D hoverDefault = GUI.skin.button.hover.background;
-	public Texture2D activeDefault = GUI.skin.button.active.background;
+	public Texture2D normalDefault;
+	public Texture2D hoverDefault;
+	public Texture2D activeDefault;
 
 	public GUISkin cooldownBarSkin;
 
@@ -33,6 +33,10 @@ public class TreatmentGUI : MonoBehaviour {
 	private List<TreatmentType> treatmentTypes = new List<TreatmentType>();
 
 	void Start () {
+		normalDefault = GUI.skin.button.normal.background;
+		hoverDefault = GUI.skin.button.hover.background;
+		activeDefault = GUI.skin.button.active.background;
+
 		Cooldown = new Dictionary<TreatmentType, float>();
 		Cooldown.Add(TreatmentType.Surgery, 0);
 		Cooldown.Add(TreatmentType.Chemo, 0);

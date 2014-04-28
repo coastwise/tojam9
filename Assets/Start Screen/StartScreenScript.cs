@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class StartScreenScript : MonoBehaviour {
+	
+	public GUISkin splashScreenSkin;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +16,6 @@ public class StartScreenScript : MonoBehaviour {
 	}
 
 
-	public GUISkin splashScreenSkin;
 
 	void OnGUI () {
 

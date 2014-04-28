@@ -5,11 +5,48 @@ public class HealthBarScript : MonoBehaviour {
 
 	public PlayArea area;
 
+	private int minHealthy = 1000;
+	private int dangerZone = 1000;
+	private int minCancerToStart = 60;
+	
+	private float lastBlink = 0;
+	private bool blinking = false;
+	
+	public Texture2D healthyPic;
+	public Texture2D cancerPic;
+	
+	public GUISkin healthyBarSkin;
+	public GUISkin cancerBarSkin;
+	public GUISkin emptyBarSkin;
+	public GUISkin cellIconSkin;
+	
+	private Color cancerColor;
+	private Color healthyColor;
+	private Color blinkColor;
+
+	
+	private TreatmentGUI gui;
+	
+	public AudioClip healthyMusic;
+	public AudioClip cancerMusic;
+	
+	private bool healthyMusicPlaying = true;
+	
+	private bool started = false;
+	private bool justStarted = false;
+	private float detectedMessageTime = 0;
+
 	// Use this for initialization
 	void Start () {
 		area = FindObjectOfType<PlayArea>();
 
 		StartCoroutine (WaitThenEnableTreatments ());
+
+
+		
+		cancerColor = new Color((255/(float)255), (255/(float)255), (255/(float)255), (float)0.8);
+		healthyColor = new Color ((249 / (float)255), (172 / (float)255), (138 / (float)255), (float)0.8);
+		blinkColor = new Color ((255 / (float)255), (0 / (float)255), (0 / (float)255), (float)0.4);
 	}
 
 	IEnumerator WaitThenEnableTreatments() {
@@ -30,42 +67,7 @@ public class HealthBarScript : MonoBehaviour {
 	
 	}
 
-
-	private int minHealthy = 1000;
-	private int dangerZone = 1000;
-	private int minCancerToStart = 60;
-
-	private float lastBlink = 0;
-	private bool blinking = false;
-
-	public Texture2D healthyPic;
-	public Texture2D cancerPic;
-
-	public GUISkin healthyBarSkin;
-	public GUISkin cancerBarSkin;
-	public GUISkin emptyBarSkin;
-	public GUISkin cellIconSkin;
-
-	private Color cancerColor = new Color((255/(float)255), (255/(float)255), (255/(float)255), (float)0.8);
-	private Color healthyColor = new Color ((249 / (float)255), (172 / (float)255), (138 / (float)255), (float)0.8);
-	private Color blinkColor = new Color ((255 / (float)255), (0 / (float)255), (0 / (float)255), (float)0.4);
-
-	private Color defaultColor = GUI.color;
-	private GUISkin defaultSkin = GUI.skin;
-
-	private TreatmentGUI gui;
-
-	public AudioClip healthyMusic;
-	public AudioClip cancerMusic;
-
-	private bool healthyMusicPlaying = true;
-
-	private bool started = false;
-	private bool justStarted = false;
-	private float detectedMessageTime = 0;
-
 	void OnGUI () {
-
 
 		var barWidth = Screen.width / 10;
 		var barPad = Screen.width / 100;
@@ -80,6 +82,7 @@ public class HealthBarScript : MonoBehaviour {
 		var healthyHeight = ((CellScript.healthyCount - minHealthy) / (float)totalHeight) * (barHeight - barPad*2);
 
 		Color defaultColor = GUI.color;
+		GUISkin defaultSkin = GUI.skin;
 
 		if (healthyHeight < 0) {
 			healthyHeight = 0;
