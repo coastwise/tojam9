@@ -19,27 +19,15 @@ public class PlayArea : GLMonoBehaviour {
 
 	public Vector2 gridSize;
 
-	public int healthyCount;
-	public int cancerCount;
 	public int emptyCount;
+	public int gridCount;
 
 	public void Start () {
 		BuildGrid();
 	}
 
 	public void FixedUpdate () {
-		healthyCount = 0;
-		cancerCount = 0;
-		emptyCount = 0;
-		foreach (FlatHexPoint point in grid) {
-			if (grid[point] == null) {
-				emptyCount++;
-			} else if (grid[point].IsMutated()) {
-				cancerCount++;
-			} else {
-				healthyCount++;
-			}
-		}
+		emptyCount = gridCount - CellScript.healthyCount - CellScript.cancerCount;
 	}
 
 	public void MoveAndBump (CellScript incoming, FlatHexPoint point, FlatHexPoint dir) {
@@ -59,10 +47,12 @@ public class PlayArea : GLMonoBehaviour {
 		grid = (FlatHexGrid<CellScript>)FlatHexGrid<CellScript>.FatRectangle((int)gridSize.x, (int)gridSize.y);
 		
 		map = new FlatHexMap(CellDimensions)
-			.AnchorCellMiddleCenter()
+			.AnchorCellTopLeft()
 			.WithWindow(ExampleUtils.ScreenRect)
 			.AlignMiddleCenter(grid)
 			.To3DXY();
+
+		gridCount = grid.Count();
 		
 		foreach(FlatHexPoint point in grid) {
 			if (Random.value < 0.5f) SpawnCell(healthyCellPrefab, point);
@@ -86,7 +76,12 @@ public class PlayArea : GLMonoBehaviour {
 
 		CellScript cell = Instantiate(prefab.gameObject).GetComponent<CellScript>();
 		Vector3 worldPoint = map[point - bumpDirection];
-		
+
+		if(prefab == healthyCellPrefab)
+			worldPoint.z = 2;
+		else
+			worldPoint.z = 1;
+
 		cell.transform.parent = root.transform;
 		cell.transform.localScale = Vector3.one;
 		cell.transform.localPosition = worldPoint;

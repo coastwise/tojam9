@@ -10,13 +10,21 @@ public class LaserTool : Treatment {
 
 	public Vector3 startPoint;
 	public Vector3 endPoint;
+	public Vector3 aBitLeft;
 
 	public float length = 10;
 
 	public GameObject effect;
 
 	protected LineRenderer lineRenderer;
-	
+
+	void Start () {
+		effect.renderer.sortingOrder = 2;
+		effect.renderer.sortingLayerName = "overlay";
+		lineRenderer.sortingOrder = 2;
+		lineRenderer.sortingLayerName = "overlay";
+	}
+
 	void OnEnable () {
 		startPositionSet = false;
 		lineRenderer = gameObject.GetComponent<LineRenderer>();
@@ -39,15 +47,15 @@ public class LaserTool : Treatment {
 			// fixed length lazor beam
 			Vector3 delta = mouse - startPoint;
 			delta = new Vector3(delta.x, delta.y, 0);
-			delta.Normalize();
-			delta = delta * length;
-			endPoint = startPoint + delta;
 
+			endPoint = startPoint + delta.normalized * length;
 			endPoint = new Vector3(endPoint.x, endPoint.y, -1);
+
+			aBitLeft = Vector3.Cross(delta, Vector3.back).normalized;
 
 			lineRenderer.SetPosition(1, endPoint);
 
-			if (Input.GetMouseButtonDown(0)) {
+			if (Input.GetMouseButtonDown(0) && !effect.activeSelf) {
 				lineRenderer.enabled = false;
 
 				TreatmentGUI.AddCooldown(type, cooldown);
@@ -67,11 +75,21 @@ public class LaserTool : Treatment {
 			if (area.grid[testPos] != null) {
 				Destroy(area.grid[testPos].gameObject);
 			}
+			testPos = area.map[effect.transform.position + aBitLeft];
+			if (area.grid[testPos] != null) {
+				Destroy(area.grid[testPos].gameObject);
+			}
+			testPos = area.map[effect.transform.position - aBitLeft];
+			if (area.grid[testPos] != null) {
+				Destroy(area.grid[testPos].gameObject);
+			}
+			gameObject.audio.Play();
 		}
 	}
 
 	public void ZapComplete () {
 		effect.SetActive(false);
 		gameObject.SetActive(false);
+		gameObject.audio.Stop();
 	}
 }

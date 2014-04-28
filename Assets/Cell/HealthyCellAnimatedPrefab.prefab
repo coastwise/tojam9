@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,10 +54,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b4361a02c195047a59cb347809b843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _divideDelayInSeconds: 50
-  _deathDelayInSeconds: 50
-  _mutationFactor: .0500000007
+  _divideDelayInSeconds: 100
+  _calcDivide: 0
+  _deathDelayInSeconds: 150
+  _calcDeath: 0
+  _mutationFactor: .00999999978
   _mutateChance: 0
+  calcMutate: 0
   onlyDivideIntoEmptyNeighbour: 1
   _mutated: 0
   area: {fileID: 0}
@@ -66,7 +69,10 @@ MonoBehaviour:
   anim: {fileID: 0}
   timeSinceMutation: 0
   animTime: 1
-  cancer: 0
+  radiationDivideBuff: 1
+  radiationDeathBuff: 1
+  radiationMutateBuff: 1
+  dividerng: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

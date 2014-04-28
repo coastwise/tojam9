@@ -34,13 +34,16 @@ public class ShapeTool : Treatment {
 		MeshFilter filter = gameObject.AddComponent(typeof(MeshFilter)) as MeshFilter;
 		filter.mesh = msh;
 		renderer.material = hilight;
+
+		renderer.sortingOrder = 2;
+		renderer.sortingLayerName = "overlay";
 	}
 
 	// Update is called once per frame
 	void Update () {
 		Vector3 worldPosition = ExampleUtils.ScreenToWorld(area.root, Input.mousePosition);
 		worldPosition = new Vector3(worldPosition.x, worldPosition.y, -1);
-		this.transform.localPosition = worldPosition;
+		this.transform.position = worldPosition;
 
 		if (!Input.GetMouseButtonDown(0)) return; // only destroy if we click
 
