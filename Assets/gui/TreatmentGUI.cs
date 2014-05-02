@@ -33,10 +33,6 @@ public class TreatmentGUI : MonoBehaviour {
 	private List<TreatmentType> treatmentTypes = new List<TreatmentType>();
 
 	void Start () {
-		normalDefault = GUI.skin.button.normal.background;
-		hoverDefault = GUI.skin.button.hover.background;
-		activeDefault = GUI.skin.button.active.background;
-
 		Cooldown = new Dictionary<TreatmentType, float>();
 		Cooldown.Add(TreatmentType.Surgery, 0);
 		Cooldown.Add(TreatmentType.Chemo, 0);
@@ -83,6 +79,12 @@ public class TreatmentGUI : MonoBehaviour {
 	}
 
 	void OnGUI () {
+		// we only want to save these once, but calling gui methods on start is a no-no
+		if (normalDefault == null) {
+			normalDefault = GUI.skin.button.normal.background;
+			hoverDefault = GUI.skin.button.hover.background;
+			activeDefault = GUI.skin.button.active.background;
+		}
 
 		var numButtons = 6;
 		
